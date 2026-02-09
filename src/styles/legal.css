@@ -1,0 +1,88 @@
+/* Legal Pages (Privacy & Terms) */
+.legal-navbar {
+  border-bottom: 2px solid var(--border);
+}
+
+.content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 1rem;
+}
+
+.legal-section-title {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--neon);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 6px var(--neon);
+}
+
+.legal-content {
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.legal-content p {
+  margin-bottom: 1.2rem;
+}
+
+.legal-content ul {
+  margin: 1rem 0 1.5rem 1.5rem;
+  padding-left: 0;
+}
+
+.legal-content li {
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+}
+
+.legal-content strong {
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.legal-content a {
+  color: var(--neon);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.legal-content a:hover {
+  text-shadow: 0 0 6px var(--neon);
+}
+
+/* Simplified starfield for legal pages */
+.starfield-legal {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, var(--neon) 40%, transparent 41%),
+    radial-gradient(1px 1px at 140px 120px, var(--neon) 40%, transparent 41%);
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  animation: drift 120s linear infinite;
+}
+
+.legal-footer {
+  border-top: 2px solid var(--border);
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.legal-footer a {
+  color: var(--neon);
+  text-decoration: none;
+}
