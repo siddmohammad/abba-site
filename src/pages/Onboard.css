@@ -1,0 +1,122 @@
+/* ===== Onboard Page Styles ===== */
+
+/* Progress bar */
+.onboard-progress {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.onboard-progress-fill {
+  height: 100%;
+  background: var(--neon);
+  box-shadow: 0 0 10px var(--neon);
+  transition: width 0.4s ease;
+}
+
+/* Form inputs */
+.onboard-label {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.onboard-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.onboard-input:focus {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.12), inset 0 0 12px rgba(57, 255, 20, 0.06);
+}
+
+.onboard-input::placeholder {
+  color: rgba(182, 233, 194, 0.35);
+}
+
+.onboard-input--error {
+  border-color: rgba(255, 80, 80, 0.7);
+}
+
+.onboard-input--error:focus {
+  box-shadow: 0 0 0 3px rgba(255, 80, 80, 0.12);
+}
+
+/* Select arrow */
+.onboard-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2339FF14' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.onboard-select option {
+  background: var(--bg-2);
+  color: var(--text);
+}
+
+/* Textarea resize */
+.onboard-input[rows] {
+  resize: vertical;
+  min-height: 70px;
+}
+
+/* Field error */
+.onboard-field-error {
+  font-size: 0.75rem;
+  color: #ff6b6b;
+  margin-top: 0.35rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+/* Divider */
+.onboard-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  opacity: 0.6;
+}
+
+/* Server error alert */
+.onboard-server-error {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 50, 50, 0.08);
+  border: 1px solid rgba(255, 80, 80, 0.4);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+}
+
+/* Success checkmark */
+.onboard-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--neon);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.35), inset 0 0 20px rgba(57, 255, 20, 0.1);
+  margin: 0 auto;
+  font-family: "IBM Plex Mono", monospace;
+}

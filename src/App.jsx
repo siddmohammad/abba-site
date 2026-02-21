@@ -8,6 +8,7 @@ import SplashCursor from './reactbits/SplashCursor';
 import Home from './pages/Home';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
+import Onboard from './pages/Onboard';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
@@ -59,6 +60,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="pricing" element={<Pricing />} />
+          <Route path="onboard" element={<Onboard />} />
         </Route>
         <Route element={<LegalLayout />}>
           <Route path="privacy" element={<Privacy />} />
