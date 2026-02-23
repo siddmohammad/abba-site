@@ -1,0 +1,605 @@
+/* ===== Botter Landing Page Styles ===== */
+
+/* CTA button hover — white text on this page, no background fill */
+.botter-page .btn-neon:hover {
+  color: #fff;
+}
+
+/* Final CTA WhatsApp button — prevent full green fill on hover */
+.final-cta-contact .btn-neon:hover {
+  background: transparent !important;
+  color: #fff;
+}
+
+/* Bangla font activation */
+.lang-bn .botter-page {
+  font-family: 'Hind Siliguri', sans-serif;
+}
+.lang-bn .botter-page .pixel {
+  font-family: "Press Start 2P", monospace;
+}
+
+/* ---- Ramadan Banner ---- */
+.ramadan-banner {
+  background: var(--neon);
+  color: #000;
+  padding: 0.55rem 3rem 0.55rem 1rem;
+  text-align: center;
+  position: relative;
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  z-index: 10;
+}
+
+.ramadan-banner .close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #000;
+  padding: 0;
+  opacity: 0.7;
+}
+.ramadan-banner .close-btn:hover { opacity: 1; }
+
+/* ---- Lang Toggle ---- */
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--neon);
+  color: var(--neon);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "IBM Plex Mono", monospace;
+  white-space: nowrap;
+}
+.lang-toggle:hover {
+  background: var(--neon);
+  color: #000;
+}
+
+/* ---- GlowCard ---- */
+.glow-card {
+  transition: box-shadow 0.25s ease, transform 0.15s ease;
+  height: 100%;
+}
+.glow-card:hover {
+  box-shadow: 0 0 32px rgba(57, 255, 20, 0.38), inset 0 0 20px rgba(57, 255, 20, 0.12);
+  transform: translateY(-3px);
+}
+
+/* ---- Section common ---- */
+.botter-page .section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon);
+  font-family: "IBM Plex Mono", monospace;
+  margin-bottom: 0.5rem;
+}
+
+.botter-page .section-headline {
+  font-size: clamp(1.3rem, 3.2vw, 2.2rem);
+  line-height: 1.25;
+}
+
+.botter-page .section-sub {
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- Hero ---- */
+.botter-hero {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 4rem);
+  background:
+    radial-gradient(1200px 500px at 15% -10%, rgba(57, 255, 20, 0.10), transparent 60%),
+    radial-gradient(800px 300px at 85% 110%, rgba(57, 255, 20, 0.10), transparent 70%);
+}
+
+.botter-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--neon);
+  font-family: "IBM Plex Mono", monospace;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.botter-hero-headline {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.botter-hero-sub {
+  color: var(--muted);
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 1.75rem;
+}
+
+.botter-reassurance {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  opacity: 0.8;
+}
+
+/* ---- WhatsApp Mock Chat ---- */
+.wa-mock-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.wa-mock {
+  background: #0f1a0f;
+  border-radius: 20px;
+  padding: 1rem 1.1rem;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid rgba(57, 255, 20, 0.25);
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.12);
+}
+
+.wa-mock-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.wa-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #000;
+  font-family: "IBM Plex Mono", monospace;
+  flex-shrink: 0;
+}
+
+.wa-clinic-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.wa-status {
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+.wa-status .online {
+  color: var(--neon);
+  font-size: 0.6rem;
+}
+
+.wa-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.wa-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-row.user { align-items: flex-start; }
+.wa-row.bot  { align-items: flex-end; }
+
+.wa-bubble {
+  border-radius: 12px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.78rem;
+  max-width: 82%;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.wa-bubble.user-bubble {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.wa-bubble.bot-bubble {
+  background: rgba(57, 255, 20, 0.15);
+  border: 1px solid rgba(57, 255, 20, 0.35);
+  color: var(--text);
+  border-bottom-right-radius: 4px;
+}
+
+.wa-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+  font-size: 0.62rem;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+.wa-sender {
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.wa-mock-footer {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(57, 255, 20, 0.12);
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  font-style: italic;
+}
+
+.wa-mock-footer span {
+  color: var(--neon);
+}
+
+/* Mini WA mock (for bento card) */
+.wa-mock-mini {
+  background: #0f1a0f;
+  border-radius: 14px;
+  padding: 0.75rem;
+  border: 1px solid rgba(57, 255, 20, 0.2);
+  margin-top: 1rem;
+}
+
+.wa-mock-mini .wa-bubble {
+  font-size: 0.72rem;
+  padding: 0.45rem 0.65rem;
+  max-width: 85%;
+}
+
+/* ---- Pain Section ---- */
+.botter-pain {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.pain-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.pain-statement {
+  color: var(--neon);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+  margin-top: 2rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ---- How It Works ---- */
+.botter-hiw {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.step-number {
+  font-family: "Press Start 2P", monospace;
+  color: var(--neon);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+  display: block;
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+}
+
+.step-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.step-body {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.channels-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.channel-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.channel-marquee-item img {
+  height: 22px;
+  filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.4));
+}
+
+.channel-dot {
+  color: var(--neon);
+  opacity: 0.5;
+}
+
+/* ---- Features Bento ---- */
+.botter-features {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.bento-large {
+  grid-row: span 2;
+}
+
+@media (max-width: 767px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-large {
+    grid-row: span 1;
+  }
+}
+
+.feature-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card-body {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---- Pricing ---- */
+.botter-pricing {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.pricing-card-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem 1.75rem;
+  background: var(--bg-2);
+  border-radius: 16px;
+  position: relative;
+}
+
+.pricing-badge {
+  display: inline-block;
+  background: var(--neon);
+  color: #000;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.pricing-plan-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-price {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--neon);
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+  line-height: 1.2;
+}
+
+.pricing-usd {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+.pricing-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.25rem 0;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.pricing-check {
+  color: var(--neon);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.pricing-reassurance {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  opacity: 0.8;
+}
+
+/* ---- Ramadan in-page banner ---- */
+.ramadan-inline {
+  background: rgba(57, 255, 20, 0.08);
+  border: 1px solid rgba(57, 255, 20, 0.35);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---- FAQ ---- */
+.botter-faq {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.faq-list {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  user-select: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-icon {
+  color: var(--neon);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-body {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-bottom: 1rem;
+}
+
+/* ---- Final CTA ---- */
+.botter-final-cta {
+  position: relative;
+  z-index: 2;
+  padding: clamp(4rem, 8vw, 6rem) 0;
+  background: radial-gradient(1000px 400px at 50% 100%, rgba(57, 255, 20, 0.08), transparent 70%);
+  text-align: center;
+}
+
+.final-cta-headline {
+  font-size: clamp(1.3rem, 3.5vw, 2.6rem);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.final-cta-sub {
+  color: var(--muted);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  margin-bottom: 2rem;
+}
+
+.final-cta-meta {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.final-cta-contact {
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.final-cta-contact a {
+  color: var(--neon);
+  text-decoration: none;
+}
+.final-cta-contact a:hover { text-decoration: underline; }
+
+/* ---- Scroll reveal ---- */
+.reveal-section {
+  /* handled by Motion whileInView in JSX */
+}
+
+/* ---- Utility ---- */
+.neon-bold {
+  color: var(--neon);
+  font-weight: 700;
+}
+
+.botter-page p { margin-bottom: 0; }
+.botter-page h2.section-headline { margin-bottom: 0.5rem; }
+
+/* Spacing helpers */
+.botter-page .py-section {
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}

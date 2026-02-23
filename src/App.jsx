@@ -5,7 +5,8 @@ import Scanlines from './components/layout/Scanlines';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import SplashCursor from './reactbits/SplashCursor';
-import Home from './pages/Home';
+import { LangProvider } from './context/LangContext';
+import Botter from './pages/Botter';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Onboard from './pages/Onboard';
@@ -15,14 +16,14 @@ import NotFound from './pages/NotFound';
 
 function MainLayout() {
   return (
-    <>
+    <LangProvider>
       <Starfield />
       <TwinkleCanvas />
       <Scanlines />
       <Navbar />
       <Outlet />
       <Footer />
-    </>
+    </LangProvider>
   );
 }
 
@@ -57,7 +58,7 @@ export default function App() {
       <SplashCursor color="#39FF14" size={10} trailLength={18} />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Botter />} />
           <Route path="about" element={<About />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="onboard" element={<Onboard />} />
