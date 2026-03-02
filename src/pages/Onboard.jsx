@@ -8,6 +8,7 @@ const WEBHOOK_URL = 'https://n8n.getabba.info/webhook/onboarding';
 const BUSINESS_TYPES = [
   'Clinic',
   'Dental Clinic',
+  'Aesthetic Clinic',
   'Pharmacy',
   'Hospital',
   'Beauty & Wellness',
@@ -17,8 +18,12 @@ const BUSINESS_TYPES = [
 const INITIAL_FORM = {
   company_name: '',
   business_type: '',
+  business_type_other: '',
   business_address: '',
   business_hours: '',
+  opening_time: '',
+  closing_time: '',
+  open_days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
   owner_name: '',
   owner_email: '',
   owner_phone: '',
@@ -49,6 +54,15 @@ export default function Onboard() {
     const { name, value } = e.target;
     setForm(f => ({ ...f, [name]: value }));
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+  }
+
+  function toggleDay(day) {
+    setForm(f => ({
+      ...f,
+      open_days: f.open_days.includes(day)
+        ? f.open_days.filter(d => d !== day)
+        : [...f.open_days, day],
+    }));
   }
 
   function validateStep1() {
@@ -88,10 +102,17 @@ export default function Onboard() {
     setStatus('submitting');
     setServerError('');
     try {
+      const resolvedBusinessType = form.business_type === 'Other'
+        ? (form.business_type_other.trim() || 'Other')
+        : form.business_type;
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          open_days: form.open_days.join(','),
+          business_type: resolvedBusinessType,
+        }),
       });
       if (!res.ok) throw new Error(`Server error (${res.status})`);
       const data = await res.json();
@@ -160,7 +181,7 @@ export default function Onboard() {
                 />
               </div>
 
-              <div className="arcade-card">
+              <div className="arcade-card onboard-card-override">
 
                 {/* ── Step 1: Business Info ── */}
                 {step === 1 && (
@@ -193,6 +214,18 @@ export default function Onboard() {
                           <option key={t} value={t}>{t}</option>
                         ))}
                       </select>
+                      {form.business_type === 'Other' && (
+                        <div className="mt-2">
+                          <input
+                            type="text"
+                            name="business_type_other"
+                            value={form.business_type_other}
+                            onChange={handleChange}
+                            className="onboard-input"
+                            placeholder="Please describe your business type"
+                          />
+                        </div>
+                      )}
                       <FieldError msg={errors.business_type} />
                     </div>
 
@@ -209,7 +242,7 @@ export default function Onboard() {
                       <FieldError msg={errors.business_address} />
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <label className="onboard-label">Business Hours *</label>
                       <input
                         type="text"
@@ -220,6 +253,50 @@ export default function Onboard() {
                         placeholder="e.g. 9am–6pm Saturday–Thursday"
                       />
                       <FieldError msg={errors.business_hours} />
+                    </div>
+
+                    {/* Structured open hours for bot-silence logic */}
+                    <div className="mb-4">
+                      <label className="onboard-label">Clinic Open Hours</label>
+                      <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginBottom: '0.75rem', fontFamily: 'IBM Plex Mono, monospace' }}>
+                        ABBA stays silent during these hours so your team handles messages directly.
+                        Leave blank for 24/7 ABBA coverage.
+                      </p>
+                      <div className="d-flex gap-3 mb-3">
+                        <div style={{ flex: 1 }}>
+                          <label className="onboard-label" style={{ fontSize: '0.45rem' }}>Opens at</label>
+                          <input
+                            type="time"
+                            name="opening_time"
+                            value={form.opening_time}
+                            onChange={handleChange}
+                            className="onboard-input"
+                          />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <label className="onboard-label" style={{ fontSize: '0.45rem' }}>Closes at</label>
+                          <input
+                            type="time"
+                            name="closing_time"
+                            value={form.closing_time}
+                            onChange={handleChange}
+                            className="onboard-input"
+                          />
+                        </div>
+                      </div>
+                      <label className="onboard-label" style={{ fontSize: '0.45rem', marginBottom: '0.5rem' }}>Open Days</label>
+                      <div className="onboard-days-grid">
+                        {['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].map(day => (
+                          <button
+                            key={day}
+                            type="button"
+                            className={`onboard-day-btn${form.open_days.includes(day) ? ' onboard-day-btn--active' : ''}`}
+                            onClick={() => toggleDay(day)}
+                          >
+                            {day.toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
                     </div>
 
                     <div className="onboard-divider mb-4" />

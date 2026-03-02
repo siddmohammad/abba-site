@@ -19,7 +19,7 @@
 .onboard-label {
   display: block;
   font-family: "Press Start 2P", monospace;
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 0.5rem;
@@ -33,7 +33,7 @@
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.9rem;
   color: var(--text);
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.06);
   border: 1.5px solid var(--border);
   border-radius: 8px;
   outline: none;
@@ -105,6 +105,12 @@
   font-size: 0.85rem;
 }
 
+/* Form card override — dark navy for better readability */
+.onboard-card-override {
+  background: #0d1520 !important;
+  border-color: rgba(57, 255, 20, 0.25);
+}
+
 /* Success checkmark */
 .onboard-success-icon {
   width: 64px;
@@ -119,4 +125,42 @@
   box-shadow: 0 0 20px rgba(57, 255, 20, 0.35), inset 0 0 20px rgba(57, 255, 20, 0.1);
   margin: 0 auto;
   font-family: "IBM Plex Mono", monospace;
+}
+
+/* Day toggle buttons */
+.onboard-days-grid {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.onboard-day-btn {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.45rem;
+  padding: 0.5rem 0.6rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.05em;
+}
+
+.onboard-day-btn:hover {
+  border-color: var(--neon);
+  color: var(--text);
+}
+
+.onboard-day-btn--active {
+  border-color: var(--neon);
+  color: var(--neon);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.2);
+}
+
+/* Neon-tinted native time picker icon */
+input[type="time"].onboard-input::-webkit-calendar-picker-indicator {
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(60deg);
+  opacity: 0.6;
+  cursor: pointer;
 }
