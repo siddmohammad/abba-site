@@ -10,6 +10,7 @@ import StarBorder from '../reactbits/StarBorder';
 import TiltedCard from '../reactbits/TiltedCard';
 import CountUp from '../reactbits/CountUp';
 import './Botter.css';
+import GhostShiftHero from '../components/GhostShiftHero';
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 function T({ en, bn }) {
@@ -135,76 +136,8 @@ export default function Botter() {
       {/* ── Ramadan Banner ── */}
       <RamadanBanner />
 
-      {/* ══ SECTION 1 — HERO ══ */}
-      <header className="botter-hero">
-        <div className="container-xxl">
-          <div className="row align-items-center g-4 g-lg-5">
-
-            {/* Left */}
-            <div className="col-lg-6">
-              <span className="botter-eyebrow">
-                {t('AI RECEPTIONIST FOR CLINICS', 'ক্লিনিকের জন্য AI রিসেপশনিস্ট')}
-              </span>
-
-              <h1 className="botter-hero-headline pixel neon-text">
-                <span className="d-block">
-                  <SplitText
-                    text={t('Become The Clinic', 'সেই ক্লিনিক হয়ে উঠুন')}
-                    splitType="words"
-                    delay={0.2}
-                    staggerTime={0.12}
-                    from={{ opacity: 0, y: 30 }}
-                    to={{ opacity: 1, y: 0 }}
-                  />
-                </span>
-                <motion.span
-                  className="d-block"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9, duration: 0.5 }}
-                >
-                  {t('That Never Closes.', 'যে কখনো বন্ধ হয় না।')}
-                </motion.span>
-              </h1>
-
-              <motion.p
-                className="botter-hero-sub"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.5 }}
-              >
-                {t(
-                  'Botter replies to every patient inquiry on WhatsApp, Facebook, and Instagram — instantly, 24/7. So you never lose a booking to a competitor who just replied faster.',
-                  'রাতে বা ছুটির দিনে রোগী message করলে Botter সাথে সাথে reply দেয় — WhatsApp, Facebook, Instagram-এ। আপনার আগে কেউ reply দিতে পারবে না।'
-                )}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6, duration: 0.4 }}
-              >
-                <StarBorder as={Link} to="/onboard" className="btn-neon pixel" color="#39FF14">
-                  {t('Start Your Free 14-Day Trial', '১৪ দিন ফ্রি ট্রায়াল শুরু করুন')}
-                </StarBorder>
-                <p className="botter-reassurance">
-                  {t(
-                    'No commitment. Cancel anytime. Setup in 24 hours.',
-                    'কোনো চুক্তি নেই। যেকোনো সময় বাতিল করুন। ২৪ ঘণ্টায় চালু।'
-                  )}
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Right — WA mock */}
-            <div className="col-lg-6">
-              <Reveal className="wa-mock-wrap">
-                <WaMock />
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* ══ GHOST SHIFT HERO ══ */}
+      <GhostShiftHero />
 
       {/* ══ SECTION 2 — PAIN ══ */}
       <section className="botter-pain">
@@ -407,12 +340,15 @@ export default function Botter() {
           <Reveal className="text-center mb-4">
             <div className="section-label">{t('PRICING', 'মূল্য')}</div>
             <h2 className="section-headline pixel neon-text">
-              {t('Less Than One Part-Time Hire.', 'একজন Part-Time Staff-এর চেয়ে কম খরচ।')}
+              {t(
+                "Your Receptionist Can't Be in Three Places at Once. Botter Can.",
+                'আপনার রিসেপশনিস্ট একসাথে তিন জায়গায় থাকতে পারে না। কিন্তু আমরা পারি।'
+              )}
             </h2>
             <p className="section-sub mt-2" style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>
               {t(
-                'A part-time receptionist costs BDT 8,000–12,000/month. Botter works 24/7 for less.',
-                'একজন part-time receptionist-এর বেতন ৮,০০০–১২,০০০ টাকা। Botter সারারাত কাজ করে তার চেয়ে কম দামে।'
+                'When WhatsApp, Facebook, and Instagram are all buzzing at the same time, something gets missed — and that "something" is usually a new patient. ABBA absorbs the message flood instantly and automatically, so your team can stop firefighting and start focusing on the patients already in the room.',
+                'একই সময়ে যখন WhatsApp, Facebook, এবং Instagram-এ মেসেজ আসতে থাকে, তখন কোনো না কোনো মেসেজ মিস হয়েই যায়—আর সেই মিস হওয়া মেসেজটি হয়তো একজন নতুন পেশেন্টের। ABBA এই মেসেজের চাপ মুহূর্তেই স্বয়ংক্রিয়ভাবে সামলে নেয়। ফলে আপনার স্টাফরা সারাক্ষণ চ্যাটের দিকে তাকিয়ে না থেকে, ক্লিনিকে উপস্থিত পেশেন্টদের সেবায় পুরো মনোযোগ দিতে পারবে।'
               )}
             </p>
           </Reveal>

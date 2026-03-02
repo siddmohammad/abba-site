@@ -1,0 +1,361 @@
+/* ===== GhostShiftHero ===== */
+
+/* ── Section ── */
+.ghost-hero {
+  position: relative;
+  z-index: 2;
+  padding: clamp(4rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem);
+  background:
+    radial-gradient(1400px 600px at 15% -5%,  rgba(57, 255, 20, 0.09), transparent 60%),
+    radial-gradient(900px  400px at 85% 110%, rgba(57, 255, 20, 0.11), transparent 65%);
+  overflow: visible;
+}
+
+/* ── Left Copy ── */
+.ghost-copy-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ghost-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+}
+
+.ghost-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 6px var(--neon), 0 0 14px rgba(57,255,20,0.5);
+  animation: ghost-dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ghost-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+.ghost-headline {
+  font-size: clamp(1.3rem, 3.6vw, 2.5rem);
+  line-height: 1.35;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+
+.ghost-subtext {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 1.8rem;
+}
+
+/* Stats row */
+.ghost-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ghost-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ghost-stat-num {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+}
+
+.ghost-stat-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ghost-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* CTA */
+.ghost-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.btn-neon.ghost-cta-btn {
+  font-size: 0.65rem;
+  padding: 1rem 1.8rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: transparent;
+  border-radius: 10px;
+}
+
+.btn-neon.ghost-cta-btn:hover {
+  color: var(--bg);
+  background: var(--neon);
+}
+
+.ghost-cta-note {
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* ── Right Phone Column ── */
+.ghost-phone-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ghost-phone-perspective {
+  perspective: 1100px;
+  transform-style: preserve-3d;
+}
+
+.ghost-phone {
+  width: clamp(230px, 28vw, 290px);
+  border-radius: 32px;
+  border: 2px solid var(--neon);
+  background: rgba(2, 6, 2, 0.92);
+  box-shadow:
+    0 0 24px rgba(57, 255, 20, 0.28),
+    0 0 60px rgba(57, 255, 20, 0.10),
+    inset 0 0 20px rgba(57, 255, 20, 0.05);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.ghost-phone-inner {
+  display: flex;
+  flex-direction: column;
+  height: 460px;
+  position: relative;
+}
+
+/* ── Phone Header ── */
+.ghost-phone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.65);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ghost-clock {
+  font-size: 0.6rem;
+  color: var(--neon);
+  text-shadow: 0 0 8px rgba(57,255,20,0.7);
+  letter-spacing: 0.04em;
+}
+
+.ghost-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.58rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  color: #000;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ghost-badge-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ── Chat Area ── */
+.ghost-chat-area {
+  flex: 1;
+  overflow: hidden;
+  padding: 0.75rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  position: relative;
+}
+
+.ghost-chat-row {
+  display: flex;
+}
+
+.ghost-chat-patient {
+  justify-content: flex-start;
+}
+
+.ghost-chat-abba {
+  justify-content: flex-end;
+}
+
+.ghost-bubble {
+  max-width: 78%;
+  padding: 0.45rem 0.65rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  font-family: "IBM Plex Mono", monospace;
+  word-break: break-word;
+}
+
+.ghost-bubble-patient {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.ghost-bubble-abba {
+  background: rgba(57, 255, 20, 0.18);
+  color: var(--neon);
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgba(57, 255, 20, 0.35);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.12);
+}
+
+/* ── Notification Chip ── */
+.ghost-notif-chip {
+  position: absolute;
+  bottom: 1rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--neon);
+  color: var(--neon);
+  font-size: 0.58rem;
+  font-family: "IBM Plex Mono", monospace;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(57,255,20,0.35), 0 0 24px rgba(57,255,20,0.12);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* ── Morning Overlay ── */
+.ghost-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 1rem;
+}
+
+.ghost-overlay-content {
+  text-align: center;
+}
+
+.ghost-overlay-morning {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+}
+
+.ghost-overlay-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ghost-count-num {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(2rem, 6vw, 2.8rem);
+}
+
+.ghost-count-label {
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* ── Typing indicator ── */
+.ghost-typing {
+  display: flex;
+  gap: 4px;
+  padding: 0 0.8rem 0.6rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ghost-typing span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--neon);
+  animation: ghost-typing-bounce 1.2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.ghost-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ghost-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ghost-typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
+  40%           { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 991.98px) {
+  .ghost-phone-col {
+    order: -1;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* Kill 3D tilt on small screens */
+  .ghost-phone-perspective {
+    perspective: none;
+    transform-style: flat;
+  }
+
+  .ghost-phone {
+    width: clamp(210px, 72vw, 270px);
+    /* Override motion inline transform via !important on small screens */
+    transform: none !important;
+  }
+
+  .ghost-headline {
+    font-size: clamp(1.1rem, 6vw, 1.6rem);
+  }
+
+  .ghost-stats {
+    gap: 0.8rem;
+  }
+}
