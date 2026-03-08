@@ -35,6 +35,11 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
+                  <a className="nav-link text-success" href="#why" onClick={() => setMenuOpen(false)}>
+                    {lang === 'bn' ? 'কেন ABBA' : 'Why ABBA'}
+                  </a>
+                </li>
+                <li className="nav-item">
                   <a className="nav-link text-success" href="#pricing" onClick={() => setMenuOpen(false)}>
                     {lang === 'bn' ? 'মূল্য' : 'Pricing'}
                   </a>
@@ -46,37 +51,18 @@ export default function Navbar() {
                 </li>
               </>
             ) : (
-              <>
-                <li className="nav-item">
-                  <NavLink className="nav-link text-success" to="/" onClick={() => setMenuOpen(false)}>
-                    Botter
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link text-success" to="/about" onClick={() => setMenuOpen(false)}>
-                    About
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-success" to="/#features" onClick={() => setMenuOpen(false)}>
-                    Features
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link text-success" to="/pricing" onClick={() => setMenuOpen(false)}>
-                    Pricing
-                  </NavLink>
-                </li>
-              </>
-            )}
-
-            {isBotterPage && (
               <li className="nav-item">
-                <button className="lang-toggle" onClick={toggleLang} aria-label="Toggle language">
-                  {lang === 'en' ? 'বাংলা' : 'English'}
-                </button>
+                <NavLink className="nav-link text-success" to="/" onClick={() => setMenuOpen(false)}>
+                  Home
+                </NavLink>
               </li>
             )}
+
+            <li className="nav-item">
+              <button className="lang-toggle" onClick={toggleLang} aria-label="Toggle language">
+                {lang === 'en' ? 'বাংলা' : 'English'}
+              </button>
+            </li>
           </ul>
         </div>
       </div>

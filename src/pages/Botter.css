@@ -1,5 +1,13 @@
 /* ===== Botter Landing Page Styles ===== */
 
+/* Wrapper for all sections below the pinned hero.
+   z-index:25 paints above the pinned hero (z-index:20).
+   No background — keeps fixed starfield/twinkle dots visible. */
+.botter-sections-wrap {
+  position: relative;
+  z-index: 25;
+}
+
 /* CTA button hover — white text on this page, no background fill */
 .botter-page .btn-neon:hover {
   color: #fff;
@@ -279,7 +287,8 @@
 .botter-pain {
   position: relative;
   z-index: 2;
-  padding: clamp(3rem, 6vw, 5rem) 0;
+  padding: clamp(12rem, 18vw, 16rem) 0 clamp(3rem, 6vw, 5rem);
+  background: var(--bg);
 }
 
 .pain-icon {
@@ -302,6 +311,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
 }
 
 .step-number {
@@ -359,6 +369,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
 }
 
 .bento-grid {
@@ -399,6 +410,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
 }
 
 .pricing-card-inner {
@@ -499,6 +511,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
 }
 
 .faq-list {
@@ -549,7 +562,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(4rem, 8vw, 6rem) 0;
-  background: radial-gradient(1000px 400px at 50% 100%, rgba(57, 255, 20, 0.08), transparent 70%);
+  background: var(--bg) radial-gradient(1000px 400px at 50% 100%, rgba(57, 255, 20, 0.08), transparent 70%);
   text-align: center;
 }
 
@@ -602,4 +615,49 @@
 .botter-page .py-section {
   padding-top: clamp(3rem, 6vw, 5rem);
   padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* ---- ABBA Difference Section ---- */
+.botter-why {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
+}
+
+/* ---- Results / Social Proof Section ---- */
+.botter-results {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
+}
+
+.results-metric-num {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+.results-metric-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.testimonial-quote {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.testimonial-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: "IBM Plex Mono", monospace;
 }

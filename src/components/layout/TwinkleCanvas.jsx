@@ -11,10 +11,12 @@ export default function TwinkleCanvas() {
 
     let NEON = getComputedStyle(document.documentElement).getPropertyValue('--neon').trim() || '#39FF14';
     let stars = [];
-    let DENSITY = window.matchMedia('(max-width: 480px)').matches ? 1.0 : 1.25;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    let DENSITY = isMobile ? 0.5 : 1.1;
+    let frameCount = 0;
 
     function resize() {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const dpr = Math.min(isMobile ? 1 : 2, window.devicePixelRatio || 1);
       cvs.width = innerWidth * dpr;
       cvs.height = innerHeight * dpr;
       cvs.style.width = innerWidth + 'px';
@@ -25,7 +27,7 @@ export default function TwinkleCanvas() {
 
     function init() {
       stars = [];
-      const count = Math.min(800, Math.floor((innerWidth * innerHeight / 2200) * DENSITY));
+      const count = Math.min(isMobile ? 250 : 700, Math.floor((innerWidth * innerHeight / 2200) * DENSITY));
       for (let i = 0; i < count; i++) {
         stars.push({
           x: Math.random() * innerWidth,
@@ -40,6 +42,12 @@ export default function TwinkleCanvas() {
     }
 
     function draw() {
+      // On mobile, render every other frame to halve GPU load
+      frameCount++;
+      if (isMobile && frameCount % 2 !== 0) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       ctx.shadowColor = NEON;
 
@@ -54,7 +62,7 @@ export default function TwinkleCanvas() {
         if (s.y > innerHeight + 2) s.y = -2;
 
         ctx.globalAlpha = s.a;
-        ctx.shadowBlur = 9;
+        ctx.shadowBlur = isMobile ? 4 : 9;
         ctx.fillStyle = NEON;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);

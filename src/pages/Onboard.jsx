@@ -127,7 +127,7 @@ export default function Onboard() {
   /* ── Success Screen ── */
   if (status === 'success') {
     return (
-      <section className="py-5" style={{ position: 'relative', zIndex: 2 }}>
+      <section className="py-5" style={{ position: 'relative', zIndex: 35, background: 'var(--bg)' }}>
         <div className="container-xxl">
           <div className="row justify-content-center">
             <div className="col-lg-6 text-center">
@@ -168,7 +168,7 @@ export default function Onboard() {
         </div>
       </header>
 
-      <section className="py-5" style={{ position: 'relative', zIndex: 2 }}>
+      <section className="py-5" style={{ position: 'relative', zIndex: 35, background: 'var(--bg)' }}>
         <div className="container-xxl">
           <div className="row justify-content-center">
             <div className="col-lg-7">
@@ -257,7 +257,7 @@ export default function Onboard() {
 
                     {/* Structured open hours for bot-silence logic */}
                     <div className="mb-4">
-                      <label className="onboard-label">Clinic Open Hours</label>
+                      <label className="onboard-label">Business Open Hours</label>
                       <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginBottom: '0.75rem', fontFamily: 'IBM Plex Mono, monospace' }}>
                         ABBA stays silent during these hours so your team handles messages directly.
                         Leave blank for 24/7 ABBA coverage.

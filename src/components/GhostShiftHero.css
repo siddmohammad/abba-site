@@ -1,361 +1,348 @@
-/* ===== GhostShiftHero ===== */
+/* ===== GhostShiftHero — Chaos-to-Calm ===== */
 
-/* ── Section ── */
-.ghost-hero {
+/* ── Hero section ── */
+.gh-hero {
   position: relative;
-  z-index: 2;
-  padding: clamp(4rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem);
-  background:
-    radial-gradient(1400px 600px at 15% -5%,  rgba(57, 255, 20, 0.09), transparent 60%),
-    radial-gradient(900px  400px at 85% 110%, rgba(57, 255, 20, 0.11), transparent 65%);
-  overflow: visible;
+  overflow: clip;            /* clips canvas; does NOT create stacking context */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(5rem, 10vw, 8rem) 0 clamp(4rem, 8vw, 6rem);
+  background-color: #080d08; /* solid base — GSAP tweens only this */
+  background-image:
+    radial-gradient(ellipse 1200px 600px at 10% 20%, rgba(57,255,20,0.07), transparent 65%),
+    radial-gradient(ellipse 800px 500px at 85% 80%, rgba(57,255,20,0.06), transparent 70%);
+  z-index: 35;               /* above sections (25) and twinkle canvas (30) — no dots on hero */
 }
 
-/* ── Left Copy ── */
-.ghost-copy-col {
+.gh-container { position: relative; z-index: 1; }
+
+/* ── Left column ── */
+.gh-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.ghost-eyebrow {
+/* ── Eyebrow ── */
+.gh-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  gap: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--neon);
-  margin-bottom: 1.2rem;
+  font-family: "IBM Plex Mono", monospace;
+  margin-bottom: 1.4rem;
   opacity: 0.85;
 }
 
-.ghost-dot {
-  display: inline-block;
+.gh-live-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--neon);
-  box-shadow: 0 0 6px var(--neon), 0 0 14px rgba(57,255,20,0.5);
-  animation: ghost-dot-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(57,255,20,0.6);
+  animation: gh-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
-@keyframes ghost-dot-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.8); }
+@keyframes gh-pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(57,255,20,0.6); }
+  50%       { box-shadow: 0 0 0 6px rgba(57,255,20,0);   }
 }
 
-.ghost-headline {
-  font-size: clamp(1.3rem, 3.6vw, 2.5rem);
-  line-height: 1.35;
-  margin-bottom: 1.2rem;
+/* ── Headline ── */
+.gh-headline {
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
   color: var(--text);
 }
 
-.ghost-subtext {
-  font-size: clamp(0.85rem, 1.5vw, 1rem);
+.gh-line-mask {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.08em;
+}
+.gh-line-inner { display: block; }
+
+/* ── Subtext ── */
+.gh-sub {
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
   color: var(--muted);
   line-height: 1.75;
   max-width: 480px;
-  margin-bottom: 1.8rem;
+  margin-bottom: 3.5rem;
 }
 
-/* Stats row */
-.ghost-stats {
+/* ── CTA ── */
+.gh-cta-row  { margin-top: 2.5rem; margin-bottom: 1rem; }
+.gh-cta-btn  { font-size: 0.72rem; padding: 0.9rem 1.8rem; letter-spacing: 0.06em; }
+.gh-cta-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  opacity: 0.7;
+}
+
+/* ── Right column ── */
+.gh-right {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.ghost-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.ghost-stat-num {
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(1rem, 2vw, 1.4rem);
-}
-
-.ghost-stat-label {
-  font-size: 0.68rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.ghost-stat-divider {
-  width: 1px;
-  height: 36px;
-  background: var(--border);
-  flex-shrink: 0;
-}
-
-/* CTA */
-.ghost-cta-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-}
-
-.btn-neon.ghost-cta-btn {
-  font-size: 0.65rem;
-  padding: 1rem 1.8rem;
-  letter-spacing: 0.08em;
-  color: #fff;
-  background: transparent;
-  border-radius: 10px;
-}
-
-.btn-neon.ghost-cta-btn:hover {
-  color: var(--bg);
-  background: var(--neon);
-}
-
-.ghost-cta-note {
-  font-size: 0.7rem;
-  color: var(--muted);
-  opacity: 0.75;
-  margin: 0;
-}
-
-/* ── Right Phone Column ── */
-.ghost-phone-col {
-  display: flex;
   justify-content: center;
+}
+
+/* ════════════════════════════════════════
+   PHONE  (no CSS 3D — GSAP scaleX flip)
+════════════════════════════════════════ */
+.gh-phone-scene {
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.ghost-phone-perspective {
-  perspective: 1100px;
-  transform-style: preserve-3d;
+/* Outer glow wrapper — filter lives here, away from the animating element */
+.gh-phone-glow {
+  position: relative;
+  width: 270px;
+  height: 540px;
+  filter: drop-shadow(0 0 36px rgba(57,255,20,0.18));
 }
 
-.ghost-phone {
-  width: clamp(230px, 28vw, 290px);
-  border-radius: 32px;
-  border: 2px solid var(--neon);
-  background: rgba(2, 6, 2, 0.92);
-  box-shadow:
-    0 0 24px rgba(57, 255, 20, 0.28),
-    0 0 60px rgba(57, 255, 20, 0.10),
-    inset 0 0 20px rgba(57, 255, 20, 0.05);
+/* GSAP tweens scaleX on this element */
+.gh-phone-wrapper {
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
   overflow: hidden;
+  background: #0a150a;
+  border: 1px solid rgba(57,255,20,0.28);
+  box-shadow:
+    inset 0 0 0 1px rgba(57,255,20,0.07),
+    0 0 50px rgba(57,255,20,0.1),
+    0 28px 80px rgba(0,0,0,0.7);
   will-change: transform;
 }
 
-.ghost-phone-inner {
-  display: flex;
-  flex-direction: column;
-  height: 460px;
-  position: relative;
+/* Both screens stack absolutely — GSAP swaps opacity */
+.gh-front-screen,
+.gh-back-screen {
+  position: absolute;
+  inset: 0;
 }
 
-/* ── Phone Header ── */
-.ghost-phone-header {
+/* ── Shared phone screen ── */
+.gh-phone-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0a150a;
+}
+
+/* ── Status bar ── */
+.gh-statusbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.65);
-  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem 0.3rem;
+  font-size: 0.6rem;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  background: rgba(57,255,20,0.04);
+  border-bottom: 1px solid rgba(57,255,20,0.08);
   flex-shrink: 0;
 }
-
-.ghost-clock {
-  font-size: 0.6rem;
-  color: var(--neon);
-  text-shadow: 0 0 8px rgba(57,255,20,0.7);
-  letter-spacing: 0.04em;
+.gh-statusbar-morning {
+  background: rgba(255,165,30,0.06);
+  border-bottom-color: rgba(255,165,30,0.14);
 }
-
-.ghost-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.58rem;
-  font-family: "IBM Plex Mono", monospace;
+.gh-status-time {
   font-weight: 700;
-  color: #000;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.ghost-badge-dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.4);
-}
-
-/* ── Chat Area ── */
-.ghost-chat-area {
-  flex: 1;
-  overflow: hidden;
-  padding: 0.75rem 0.7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  position: relative;
-}
-
-.ghost-chat-row {
-  display: flex;
-}
-
-.ghost-chat-patient {
-  justify-content: flex-start;
-}
-
-.ghost-chat-abba {
-  justify-content: flex-end;
-}
-
-.ghost-bubble {
-  max-width: 78%;
-  padding: 0.45rem 0.65rem;
-  border-radius: 14px;
-  font-size: 0.7rem;
-  line-height: 1.5;
-  font-family: "IBM Plex Mono", monospace;
-  word-break: break-word;
-}
-
-.ghost-bubble-patient {
-  background: rgba(255, 255, 255, 0.08);
   color: var(--text);
-  border-bottom-left-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.62rem;
 }
 
-.ghost-bubble-abba {
-  background: rgba(57, 255, 20, 0.18);
-  color: var(--neon);
-  border-bottom-right-radius: 4px;
-  border: 1px solid rgba(57, 255, 20, 0.35);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.12);
+/* ── Chat header ── */
+.gh-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  background: rgba(57,255,20,0.05);
+  border-bottom: 1px solid rgba(57,255,20,0.1);
+  flex-shrink: 0;
 }
-
-/* ── Notification Chip ── */
-.ghost-notif-chip {
-  position: absolute;
-  bottom: 1rem;
-  right: 0.5rem;
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid var(--neon);
-  color: var(--neon);
-  font-size: 0.58rem;
-  font-family: "IBM Plex Mono", monospace;
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
-  box-shadow: 0 0 10px rgba(57,255,20,0.35), 0 0 24px rgba(57,255,20,0.12);
-  white-space: nowrap;
-  z-index: 2;
+.gh-morning-header {
+  background: rgba(255,165,30,0.05);
+  border-bottom-color: rgba(255,165,30,0.12);
 }
-
-/* ── Morning Overlay ── */
-.ghost-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+.gh-chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--neon);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  padding: 1rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #000;
+  font-family: "IBM Plex Mono", monospace;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(57,255,20,0.4);
 }
-
-.ghost-overlay-content {
-  text-align: center;
+.gh-bot-avatar {
+  background: rgba(255,165,30,0.18);
+  border: 1px solid rgba(255,165,30,0.4);
+  font-size: 1rem;
+  color: inherit;
 }
-
-.ghost-overlay-morning {
-  font-size: 0.65rem;
+.gh-chat-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.gh-chat-sub {
+  font-size: 0.6rem;
   color: var(--muted);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.8rem;
-  opacity: 0.8;
 }
+.gh-sub-delivered { color: rgba(57,255,20,0.8); }
 
-.ghost-overlay-count {
+/* ════════════════════════════════════════
+   PHASE 1 — CHAOS BUBBLES
+════════════════════════════════════════ */
+.gh-chaos-bubbles {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.6rem 0.75rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
+  gap: 0.45rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.gh-chaos-bubbles::-webkit-scrollbar { display: none; }
 
-.ghost-count-num {
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(2rem, 6vw, 2.8rem);
-}
-
-.ghost-count-label {
-  font-size: 0.75rem;
+.gh-chaos-bubble {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  border-bottom-left-radius: 3px;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.68rem;
   color: var(--text);
-  line-height: 1.5;
-  text-align: center;
-  opacity: 0.9;
+  line-height: 1.4;
+  max-width: 88%;
+  word-break: break-word;
 }
 
-/* ── Typing indicator ── */
-.ghost-typing {
-  display: flex;
-  gap: 4px;
-  padding: 0 0.8rem 0.6rem;
-  align-items: center;
+.gh-phone-input-bar {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-radius: 0 0 35px 35px;
   flex-shrink: 0;
 }
-
-.ghost-typing span {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--neon);
-  animation: ghost-typing-bounce 1.2s ease-in-out infinite;
-  opacity: 0.6;
+.gh-input-placeholder {
+  font-size: 0.62rem;
+  color: var(--muted);
+  opacity: 0.5;
 }
 
-.ghost-typing span:nth-child(2) { animation-delay: 0.2s; }
-.ghost-typing span:nth-child(3) { animation-delay: 0.4s; }
+/* ════════════════════════════════════════
+   PHASE 3 — OWNER MORNING SCREEN
+════════════════════════════════════════ */
+.gh-morning-body {
+  flex: 1;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.gh-morning-body::-webkit-scrollbar { display: none; }
 
-@keyframes ghost-typing-bounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
-  40%           { transform: translateY(-5px); opacity: 1; }
+.gh-bot-bubble {
+  align-self: flex-end;
+  background: rgba(57,255,20,0.1);
+  border: 1px solid rgba(57,255,20,0.28);
+  border-radius: 14px;
+  border-bottom-right-radius: 3px;
+  padding: 0.65rem 0.85rem;
+  max-width: 92%;
+  position: relative;
+}
+.gh-typing-text {
+  font-size: 0.7rem;
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 1em;
+}
+.gh-cursor {
+  display: inline-block;
+  color: var(--neon);
+  font-weight: 700;
+  font-size: 0.8rem;
+  animation: gh-blink 0.8s step-end infinite;
+  margin-left: 1px;
+}
+@keyframes gh-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Lead card ── */
+.gh-lead-card {
+  background: rgba(255,165,30,0.08);
+  border: 1px solid rgba(255,165,30,0.32);
+  border-radius: 14px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.gh-lead-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,165,30,0.9);
+  font-family: "IBM Plex Mono", monospace;
+}
+.gh-lead-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.gh-lead-detail {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.gh-lead-cta {
+  display: block;
+  text-align: center;
+  font-size: 0.62rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
 }
 
 /* ── Responsive ── */
-@media (max-width: 991.98px) {
-  .ghost-phone-col {
-    order: -1;
-  }
+@media (max-width: 991px) {
+  .gh-hero { min-height: auto; padding: clamp(4rem, 8vw, 6rem) 0; }
+  .gh-right { margin-top: 3.5rem; }
+  .gh-sub   { max-width: 100%; }
+  .gh-phone-glow { width: 240px; height: 480px; }
 }
-
-@media (max-width: 575.98px) {
-  /* Kill 3D tilt on small screens */
-  .ghost-phone-perspective {
-    perspective: none;
-    transform-style: flat;
-  }
-
-  .ghost-phone {
-    width: clamp(210px, 72vw, 270px);
-    /* Override motion inline transform via !important on small screens */
-    transform: none !important;
-  }
-
-  .ghost-headline {
-    font-size: clamp(1.1rem, 6vw, 1.6rem);
-  }
-
-  .ghost-stats {
-    gap: 0.8rem;
-  }
+@media (max-width: 575px) {
+  .gh-headline { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+  .gh-phone-glow { width: 220px; height: 440px; }
 }

@@ -1,274 +1,238 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TextPlugin }    from 'gsap/TextPlugin';
+import VortexCanvas from './VortexCanvas';
 import './GhostShiftHero.css';
 
-// ─── helpers ────────────────────────────────────────────────────────────────
-const formatClock = (m) => {
-  const h24 = Math.floor(m / 60) % 24;
-  const mins = m % 60;
-  const h12 = h24 % 12 || 12;
-  const ampm = h24 >= 12 ? 'PM' : 'AM';
-  return `${String(h12).padStart(2, '0')}:${String(mins).padStart(2, '0')} ${ampm}`;
-};
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-const CHATS = [
-  { side: 'patient', text: 'Apnader ki kal shokale khola thakbe?' },
-  { side: 'abba',    text: 'Ji, amra shokal 10ta theke khola. Apni ki appointment nite chan?' },
-  { side: 'patient', text: 'Haa, Dr. Kamal er appointment lagbe.' },
-  { side: 'abba',    text: 'Done! Kal 11:30 AM e apnar booking confirm kora holo. ✔️' },
+// ─── Phase 1: chaos messages ─────────────────────────────────────────────────
+const CHAOS_MSGS = [
+  'Hi, price for 500 polo shirt?',
+  'Hello! Are you open now? 🙏',
+  'I want to place a bulk order',
+  'Quotation for embroidery please',
+  'Your delivery time?',
+  'Custom printing available?',
+  'Price list deben please 🙏',
+  'Urgent — need by Friday!',
+  'Min order quantity koto?',
+  'Can I visit your showroom?',
+  'Instagram-e dekhsi, price koto?',
+  'Wholesale rate available?',
+  'Reply please, urgent 😰',
+  'Hello? Anyone there?',
+  'Still waiting... 😔',
 ];
 
-// ─── Phone UI ────────────────────────────────────────────────────────────────
-function PhoneScreen({ clockRef, visibleChats, chipLabel, showOverlay, isOnline }) {
+// ─── Phase 3: morning briefing ────────────────────────────────────────────────
+const MORNING_MSG =
+  'Good morning Boss! 🌅<br><br>' +
+  'You had <strong>18 inquiries</strong> last night.<br>' +
+  'I handled all of them.<br><br>' +
+  'Hot lead waiting 👇';
+
+// ─── Phone screens ────────────────────────────────────────────────────────────
+function PhoneFront() {
   return (
-    <div className="ghost-phone-inner">
-      {/* Header bar */}
-      <div className="ghost-phone-header">
-        <div className="ghost-clock pixel" ref={clockRef}>{formatClock(1410)}</div>
-        <motion.div
-          className="ghost-status-badge"
-          animate={{
-            backgroundColor: isOnline ? '#39FF14' : '#ff3a3a',
-            boxShadow: isOnline
-              ? '0 0 8px #39FF14, 0 0 16px rgba(57,255,20,0.4)'
-              : '0 0 8px #ff3a3a, 0 0 16px rgba(255,58,58,0.4)',
-          }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="ghost-badge-dot" />
-          {isOnline ? 'Online' : 'Clinic Closed'}
-        </motion.div>
+    <div className="gh-phone-screen gh-front-screen">
+      <div className="gh-statusbar">
+        <span className="gh-status-time">2:14 AM</span>
+        <span className="gh-status-icons">📶 🔋</span>
       </div>
-
-      {/* Chat area */}
-      <div className="ghost-chat-area">
-        <AnimatePresence>
-          {CHATS.slice(0, visibleChats).map((msg, i) => (
-            <motion.div
-              key={i}
-              className={`ghost-chat-row ghost-chat-${msg.side}`}
-              initial={{ opacity: 0, x: msg.side === 'patient' ? -30 : 30, y: 10 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              <div className={`ghost-bubble ghost-bubble-${msg.side}`}>
-                {msg.text}
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-
-        {/* Notification chips */}
-        <AnimatePresence>
-          {chipLabel && (
-            <motion.div
-              key={chipLabel}
-              className="ghost-notif-chip"
-              initial={{ x: 80, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ y: -50, opacity: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-            >
-              ✓ {chipLabel}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Morning overlay */}
-        <AnimatePresence>
-          {showOverlay && (
-            <motion.div
-              className="ghost-overlay"
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              <div className="ghost-overlay-content">
-                <div className="ghost-overlay-morning pixel">Good Morning.</div>
-                <div className="ghost-overlay-count">
-                  <span className="ghost-count-num neon-text">14</span>
-                  <span className="ghost-count-label">Patient Inquiries Handled<br />While You Slept.</span>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Typing indicator while clinic is "closed" and chats are loading */}
-      {visibleChats > 0 && visibleChats < 4 && (
-        <div className="ghost-typing">
-          <span /><span /><span />
+      <div className="gh-chat-header">
+        <div className="gh-chat-avatar">YB</div>
+        <div className="gh-chat-info">
+          <div className="gh-chat-name">Your Business</div>
+          <div className="gh-chat-sub">online</div>
         </div>
-      )}
+      </div>
+      <div className="gh-chaos-bubbles" id="gh-chaos-scroll">
+        {CHAOS_MSGS.map((text, i) => (
+          <div key={i} className="gh-chaos-bubble">{text}</div>
+        ))}
+      </div>
+      <div className="gh-phone-input-bar">
+        <span className="gh-input-placeholder">Type a message</span>
+      </div>
     </div>
   );
 }
 
-// ─── Main Component ──────────────────────────────────────────────────────────
+function PhoneBack({ typingRef }) {
+  return (
+    <div className="gh-phone-screen gh-back-screen">
+      <div className="gh-statusbar gh-statusbar-morning">
+        <span className="gh-status-time">7:23 AM</span>
+        <span className="gh-status-icons">📶 🔋</span>
+      </div>
+      <div className="gh-chat-header gh-morning-header">
+        <div className="gh-chat-avatar gh-bot-avatar">🤖</div>
+        <div className="gh-chat-info">
+          <div className="gh-chat-name">Botter Assistant</div>
+          <div className="gh-chat-sub gh-sub-delivered">✓✓ Handled 18 overnight</div>
+        </div>
+      </div>
+      <div className="gh-morning-body">
+        <div className="gh-bot-bubble">
+          <div ref={typingRef} className="gh-typing-text" />
+          <span className="gh-cursor">|</span>
+        </div>
+        <div className="gh-lead-card">
+          <div className="gh-lead-tag">🔥 HOT LEAD</div>
+          <div className="gh-lead-name">Rafiq Ahmed</div>
+          <div className="gh-lead-detail">500 pcs polo shirt · Advance ready</div>
+          <a href="/onboard" className="gh-lead-cta btn-neon">📞 Call Rafiq Now</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 export default function GhostShiftHero() {
-  const [visibleChats, setVisibleChats] = useState(0);
-  const [chipLabel, setChipLabel]       = useState(null);
-  const [showOverlay, setShowOverlay]   = useState(false);
-  const [isOnline, setIsOnline]         = useState(false);
-
-  const clockRef     = useRef(null);
-  const timers       = useRef([]);
-  const clockInterval = useRef(null);
-
-  const clearAll = () => {
-    timers.current.forEach(clearTimeout);
-    timers.current = [];
-    if (clockInterval.current) {
-      clearInterval(clockInterval.current);
-      clockInterval.current = null;
-    }
-  };
-
-  const addTimer = (fn, delay) => {
-    timers.current.push(setTimeout(fn, delay));
-  };
-
-  const runSequence = () => {
-    clearAll();
-
-    // t=0: reset — write clock directly to DOM, no React state
-    if (clockRef.current) clockRef.current.textContent = formatClock(1410);
-    setVisibleChats(0);
-    setChipLabel(null);
-    setShowOverlay(false);
-    setIsOnline(false);
-
-    // t=1000: start clock timelapse (23:30 → 6:00 AM, 390 ticks × 10ms = 3.9s)
-    // DOM write only — zero React re-renders during the timelapse
-    addTimer(() => {
-      let m = 1410;
-      clockInterval.current = setInterval(() => {
-        m = (m + 1) % 1440;
-        if (clockRef.current) clockRef.current.textContent = formatClock(m);
-        if (m === 360) {
-          clearInterval(clockInterval.current);
-          clockInterval.current = null;
-        }
-      }, 10);
-    }, 1000);
-
-    addTimer(() => setVisibleChats(1), 1500);
-
-    // Chat 2 + chip 1
-    addTimer(() => setVisibleChats(2), 2300);
-    addTimer(() => setChipLabel('Availability Checked'), 2500);
-    addTimer(() => setChipLabel(null), 3600);
-
-    addTimer(() => setVisibleChats(3), 3100);
-
-    // Chat 4 + chip 2
-    addTimer(() => setVisibleChats(4), 3900);
-    addTimer(() => setChipLabel('Appointment Set'), 4100);
-    addTimer(() => setChipLabel(null), 5000);
-
-    // t=5200: resolution — 8:00 AM, status online
-    addTimer(() => {
-      clearInterval(clockInterval.current);
-      clockInterval.current = null;
-      if (clockRef.current) clockRef.current.textContent = formatClock(480); // 8:00 AM
-      setIsOnline(true);
-      setChipLabel(null);
-    }, 5200);
-
-    // t=5800: show overlay
-    addTimer(() => setShowOverlay(true), 5800);
-
-    // t=7200: hide overlay, pause
-    addTimer(() => setShowOverlay(false), 7200);
-
-    // t=8200: loop
-    addTimer(runSequence, 8200);
-  };
+  const heroRef      = useRef(null);
+  const canvasRef    = useRef(null);
+  const phoneWrapRef = useRef(null);
+  const typingRef    = useRef(null);
 
   useEffect(() => {
-    runSequence();
-    return clearAll;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const hero  = heroRef.current;
+    const phone = phoneWrapRef.current;
+
+    // ── Set initial hidden states ───────────────────────────────────────────
+    gsap.set('.gh-line-inner',   { y: '105%' });
+    gsap.set(['.gh-sub', '.gh-cta-row'], { opacity: 0, y: 18 });
+    gsap.set('.gh-chaos-bubble', { opacity: 0, y: 10 });
+    gsap.set('.gh-back-screen',  { opacity: 0 });
+    gsap.set('.gh-lead-card',    { opacity: 0, y: 16 });
+
+    // ── Phase 1: intro animations ──────────────────────────────────────────
+    const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    intro
+      .to('.gh-line-inner', { y: '0%',    duration: 0.9, stagger: 0.12 }, 0)
+      .to('.gh-sub',        { opacity: 1, y: 0, duration: 0.55 }, '-=0.3')
+      .to('.gh-cta-row',    { opacity: 1, y: 0, duration: 0.5  }, '-=0.35');
+
+    // ── Phase 1: chaos bubbles stagger in ─────────────────────────────────
+    const chatEl = document.getElementById('gh-chaos-scroll');
+    gsap.to('.gh-chaos-bubble', {
+      opacity: 1, y: 0,
+      duration: 0.2,
+      stagger: {
+        each: 0.18,
+        onComplete() { if (chatEl) chatEl.scrollTop = chatEl.scrollHeight; },
+      },
+      ease:  'power2.out',
+      delay: 0.6,
+    });
+
+    // ── Phase 2 + 3: ScrollTrigger ─────────────────────────────────────────
+    const st = gsap.timeline({
+      scrollTrigger: {
+        trigger:       hero,
+        start:         'top top',
+        end:           '+=20%',
+        pin:           true,
+        scrub:         4,
+        anticipatePin: 1,
+        onUpdate(self) {
+          if (!canvasRef.current) return;
+          const p = self.progress;
+          let speed;
+          if      (p < 0.1)  speed = 1;
+          else if (p < 0.35) speed = 1  + (p - 0.1)  / 0.25 * 10; // 1→11
+          else if (p < 0.55) speed = 11 - (p - 0.35) / 0.2  * 10; // 11→1
+          else               speed = 1;
+          canvasRef.current.setSpeed(speed);
+        },
+      },
+    });
+
+    st
+      // Phase 2: fade chaos, warm background
+      .to('.gh-chaos-bubbles', { opacity: 0,         duration: 0.15 }, 0)
+      .to(hero,                { backgroundColor: '#07100d', duration: 0.3 }, 0)
+
+      // Phone squish-swap (no CSS 3D)
+      .to('.gh-front-screen',  { opacity: 0,         duration: 0.08 }, 0.18)
+      .to(phone,               { scaleX: 0,          duration: 0.07, ease: 'power2.in'  }, 0.22)
+      .to('.gh-back-screen',   { opacity: 1,         duration: 0.01 }, 0.29)
+      .to(phone,               { scaleX: 1,          duration: 0.09, ease: 'power2.out' }, 0.30)
+
+      // Phase 3: type morning message
+      .to(typingRef.current, {
+        text:     { value: MORNING_MSG, delimiter: '' },
+        duration: 0.38,
+        ease:     'none',
+      }, 0.44)
+
+      // Lead card reveal
+      .to('.gh-cursor',    { opacity: 0, duration: 0.04 }, 0.84)
+      .to('.gh-lead-card', { opacity: 1, y: 0, duration: 0.1 }, 0.84);
+
+    return () => {
+      intro.kill();
+      st.kill();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
   }, []);
 
   return (
-    <section className="ghost-hero">
-      <div className="container">
-        <div className="row align-items-center g-5">
+    <section className="gh-hero" ref={heroRef}>
+      <VortexCanvas ref={canvasRef} />
+
+      <div className="container gh-container">
+        <div className="row align-items-center gh-row">
 
           {/* ── LEFT: Copy ── */}
-          <div className="col-lg-6 ghost-copy-col">
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-            >
-              <div className="ghost-eyebrow">
-                <span className="ghost-dot" />
-                Night Shift — Always On
+          <div className="col-lg-5 gh-left">
+            <div className="gh-eyebrow">
+              <span className="gh-live-dot" />
+              AI Customer Agent &nbsp;·&nbsp; Always On
+            </div>
+
+            <h1 className="gh-headline pixel">
+              <div className="gh-line-mask">
+                <div className="gh-line-inner">Become The</div>
               </div>
+              <div className="gh-line-mask">
+                <div className="gh-line-inner">Business That</div>
+              </div>
+              <div className="gh-line-mask">
+                <div className="gh-line-inner">
+                  <span className="neon-text">Never Closes.</span>
+                </div>
+              </div>
+            </h1>
 
-              <h1 className="ghost-headline pixel">
-                Become The Clinic<br />
-                That <span className="neon-text">Never Closes.</span>
-              </h1>
+            <p className="gh-sub">
+              While you sleep, Botter handles every WhatsApp, Facebook, and
+              Instagram message — qualifying leads, answering questions, and
+              filling your pipeline. 24/7.
+            </p>
 
-              <p className="ghost-subtext">
-                While you sleep, ABBA handles every patient message — booking serials,
-                answering questions, and filling your schedule. 24/7, zero missed appointments.
+            <div className="gh-cta-row">
+              <a href="/onboard" className="btn-neon pixel gh-cta-btn">
+                Start Free 14-Day Trial &nbsp;→
+              </a>
+              <p className="gh-cta-note">
+                No credit card &nbsp;·&nbsp; Setup in 24 hrs &nbsp;·&nbsp; WhatsApp support
               </p>
-
-              <div className="ghost-stats">
-                <div className="ghost-stat">
-                  <span className="ghost-stat-num neon-text">24/7</span>
-                  <span className="ghost-stat-label">Availability</span>
-                </div>
-                <div className="ghost-stat-divider" />
-                <div className="ghost-stat">
-                  <span className="ghost-stat-num neon-text">~45s</span>
-                  <span className="ghost-stat-label">Response Time</span>
-                </div>
-                <div className="ghost-stat-divider" />
-                <div className="ghost-stat">
-                  <span className="ghost-stat-num neon-text">0</span>
-                  <span className="ghost-stat-label">Missed Bookings</span>
-                </div>
-              </div>
-
-              <div className="ghost-cta-row">
-                <a href="/onboard" className="btn-neon ghost-cta-btn pixel">
-                  Start Free 14-Day Trial &nbsp;→
-                </a>
-                <p className="ghost-cta-note">No credit card required · Setup in 24 hrs · WhatsApp support</p>
-              </div>
-            </motion.div>
+            </div>
           </div>
 
-          {/* ── RIGHT: 3D Phone ── */}
-          <div className="col-lg-6 ghost-phone-col">
-            <motion.div
-              className="ghost-phone-perspective"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            >
-              <motion.div
-                className="ghost-phone"
-                style={{ rotateX: 12, rotateY: -22, rotateZ: 4 }}
-                animate={{ rotateY: [-22, -18, -22], rotateZ: [4, 3, 4] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <PhoneScreen
-                  clockRef={clockRef}
-                  visibleChats={visibleChats}
-                  chipLabel={chipLabel}
-                  showOverlay={showOverlay}
-                  isOnline={isOnline}
-                />
-              </motion.div>
-            </motion.div>
+          {/* ── RIGHT: Phone (GSAP scaleX flip — no CSS 3D) ── */}
+          <div className="col-lg-7 gh-right">
+            <div className="gh-phone-scene">
+              <div className="gh-phone-glow">
+                <div className="gh-phone-wrapper" ref={phoneWrapRef}>
+                  <PhoneFront />
+                  <PhoneBack typingRef={typingRef} />
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

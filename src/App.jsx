@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom';
 import Starfield from './components/layout/Starfield';
 import TwinkleCanvas from './components/layout/TwinkleCanvas';
@@ -7,12 +8,14 @@ import Footer from './components/layout/Footer';
 import SplashCursor from './reactbits/SplashCursor';
 import { LangProvider } from './context/LangContext';
 import Botter from './pages/Botter';
-import About from './pages/About';
-import Pricing from './pages/Pricing';
-import Onboard from './pages/Onboard';
-import Privacy from './pages/Privacy';
-import Terms from './pages/Terms';
-import NotFound from './pages/NotFound';
+
+// Lazy-load non-critical routes so they don't bloat the initial bundle
+const About   = lazy(() => import('./pages/About'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const Onboard = lazy(() => import('./pages/Onboard'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms   = lazy(() => import('./pages/Terms'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function MainLayout() {
   return (
@@ -56,6 +59,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <SplashCursor color="#39FF14" size={10} trailLength={18} />
+      <Suspense fallback={null}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<Botter />} />
@@ -69,6 +73,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
