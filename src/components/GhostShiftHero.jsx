@@ -129,13 +129,16 @@ export default function GhostShiftHero() {
     });
 
     // ── Phase 2 + 3: ScrollTrigger ─────────────────────────────────────────
+    // Mobile needs a much longer scroll distance — touch swipes cover 300-400px
+    // in one gesture, so 20% viewport is way too short on phones.
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const st = gsap.timeline({
       scrollTrigger: {
         trigger:       hero,
         start:         'top top',
-        end:           '+=20%',
+        end:           isMobile ? '+=150%' : '+=20%',
         pin:           true,
-        scrub:         4,
+        scrub:         isMobile ? 1.5 : 4,
         anticipatePin: 1,
         onUpdate(self) {
           if (!canvasRef.current) return;
