@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TextPlugin }    from 'gsap/TextPlugin';
+import { TextPlugin } from 'gsap/TextPlugin';
 import VortexCanvas from './VortexCanvas';
 import './GhostShiftHero.css';
 
@@ -92,28 +92,28 @@ function PhoneBack({ typingRef }) {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export default function GhostShiftHero() {
-  const heroRef      = useRef(null);
-  const canvasRef    = useRef(null);
+  const heroRef = useRef(null);
+  const canvasRef = useRef(null);
   const phoneWrapRef = useRef(null);
-  const typingRef    = useRef(null);
+  const typingRef = useRef(null);
 
   useEffect(() => {
-    const hero  = heroRef.current;
+    const hero = heroRef.current;
     const phone = phoneWrapRef.current;
 
     // ── Set initial hidden states ───────────────────────────────────────────
-    gsap.set('.gh-line-inner',   { y: '105%' });
+    gsap.set('.gh-line-inner', { y: '105%' });
     gsap.set(['.gh-sub', '.gh-cta-row'], { opacity: 0, y: 18 });
     gsap.set('.gh-chaos-bubble', { opacity: 0, y: 10 });
-    gsap.set('.gh-back-screen',  { opacity: 0 });
-    gsap.set('.gh-lead-card',    { opacity: 0, y: 16 });
+    gsap.set('.gh-back-screen', { opacity: 0 });
+    gsap.set('.gh-lead-card', { opacity: 0, y: 16 });
 
     // ── Phase 1: intro animations ──────────────────────────────────────────
     const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
     intro
-      .to('.gh-line-inner', { y: '0%',    duration: 0.9, stagger: 0.12 }, 0)
-      .to('.gh-sub',        { opacity: 1, y: 0, duration: 0.55 }, '-=0.3')
-      .to('.gh-cta-row',    { opacity: 1, y: 0, duration: 0.5  }, '-=0.35');
+      .to('.gh-line-inner', { y: '0%', duration: 0.9, stagger: 0.12 }, 0)
+      .to('.gh-sub', { opacity: 1, y: 0, duration: 0.55 }, '-=0.3')
+      .to('.gh-cta-row', { opacity: 1, y: 0, duration: 0.5 }, '-=0.35');
 
     // ── Phase 1: chaos bubbles stagger in ─────────────────────────────────
     const chatEl = document.getElementById('gh-chaos-scroll');
@@ -124,56 +124,78 @@ export default function GhostShiftHero() {
         each: 0.18,
         onComplete() { if (chatEl) chatEl.scrollTop = chatEl.scrollHeight; },
       },
-      ease:  'power2.out',
+      ease: 'power2.out',
       delay: 0.6,
     });
 
-    // ── Phase 2 + 3: ScrollTrigger ─────────────────────────────────────────
-    // Mobile needs a much longer scroll distance — touch swipes cover 300-400px
-    // in one gesture, so 20% viewport is way too short on phones.
+    // ── Phase 2 + 3: ScrollTrigger (Desktop) or Loop (Mobile) ──────────────
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const st = gsap.timeline({
-      scrollTrigger: {
-        trigger:       hero,
-        start:         'top top',
-        end:           isMobile ? '+=150%' : '+=20%',
-        pin:           true,
-        scrub:         isMobile ? 1.5 : 4,
-        anticipatePin: 1,
-        onUpdate(self) {
+    let st;
+
+    if (isMobile) {
+      // On mobile, play as a repeating loop with no scroll trigger.
+      st = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+
+      // We still need to drive the vortex canvas speed
+      st.to({}, {
+        duration: 4,
+        onUpdate() {
           if (!canvasRef.current) return;
-          const p = self.progress;
+          const p = this.progress();
           let speed;
-          if      (p < 0.1)  speed = 1;
-          else if (p < 0.35) speed = 1  + (p - 0.1)  / 0.25 * 10; // 1→11
-          else if (p < 0.55) speed = 11 - (p - 0.35) / 0.2  * 10; // 11→1
-          else               speed = 1;
+          if (p < 0.1) speed = 1;
+          else if (p < 0.35) speed = 1 + (p - 0.1) / 0.25 * 10;
+          else if (p < 0.55) speed = 11 - (p - 0.35) / 0.2 * 10;
+          else speed = 1;
           canvasRef.current.setSpeed(speed);
+        }
+      }, 0);
+
+    } else {
+      // On desktop, use the original scrolled animation
+      st = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: '+=20%',
+          pin: true,
+          scrub: 4,
+          anticipatePin: 1,
+          onUpdate(self) {
+            if (!canvasRef.current) return;
+            const p = self.progress;
+            let speed;
+            if (p < 0.1) speed = 1;
+            else if (p < 0.35) speed = 1 + (p - 0.1) / 0.25 * 10; // 1→11
+            else if (p < 0.55) speed = 11 - (p - 0.35) / 0.2 * 10; // 11→1
+            else speed = 1;
+            canvasRef.current.setSpeed(speed);
+          },
         },
-      },
-    });
+      });
+    }
 
     st
       // Phase 2: fade chaos, warm background
-      .to('.gh-chaos-bubbles', { opacity: 0,         duration: 0.15 }, 0)
-      .to(hero,                { backgroundColor: '#07100d', duration: 0.3 }, 0)
+      .to('.gh-chaos-bubbles', { opacity: 0, duration: isMobile ? 0.5 : 0.15 }, 0)
+      .to(hero, { backgroundColor: '#07100d', duration: isMobile ? 1.0 : 0.3 }, 0)
 
       // Phone squish-swap (no CSS 3D)
-      .to('.gh-front-screen',  { opacity: 0,         duration: 0.08 }, 0.18)
-      .to(phone,               { scaleX: 0,          duration: 0.07, ease: 'power2.in'  }, 0.22)
-      .to('.gh-back-screen',   { opacity: 1,         duration: 0.01 }, 0.29)
-      .to(phone,               { scaleX: 1,          duration: 0.09, ease: 'power2.out' }, 0.30)
+      .to('.gh-front-screen', { opacity: 0, duration: isMobile ? 0.3 : 0.08 }, isMobile ? 0.6 : 0.18)
+      .to(phone, { scaleX: 0, duration: isMobile ? 0.25 : 0.07, ease: 'power2.in' }, isMobile ? 0.7 : 0.22)
+      .to('.gh-back-screen', { opacity: 1, duration: isMobile ? 0.05 : 0.01 }, isMobile ? 0.95 : 0.29)
+      .to(phone, { scaleX: 1, duration: isMobile ? 0.35 : 0.09, ease: 'power2.out' }, isMobile ? 1.0 : 0.30)
 
       // Phase 3: type morning message
-      .to(typingRef.current, {
-        text:     { value: MORNING_MSG, delimiter: '' },
-        duration: 0.38,
-        ease:     'none',
-      }, 0.44)
+      .fromTo(typingRef.current, { text: { value: '', delimiter: '' } }, {
+        text: { value: MORNING_MSG, delimiter: '' },
+        duration: isMobile ? 1.5 : 0.38,
+        ease: 'none',
+      }, isMobile ? 1.5 : 0.44)
 
       // Lead card reveal
-      .to('.gh-cursor',    { opacity: 0, duration: 0.04 }, 0.84)
-      .to('.gh-lead-card', { opacity: 1, y: 0, duration: 0.1 }, 0.84);
+      .to('.gh-cursor', { opacity: 0, duration: isMobile ? 0.2 : 0.04 }, isMobile ? 3.0 : 0.84)
+      .to('.gh-lead-card', { opacity: 1, y: 0, duration: isMobile ? 0.4 : 0.1 }, isMobile ? 3.0 : 0.84);
 
     return () => {
       intro.kill();

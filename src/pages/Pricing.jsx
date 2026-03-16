@@ -33,13 +33,13 @@ export default function Pricing() {
             <div className="col-md-6 col-lg-4">
               <TiltedCard className="arcade-card h-100 d-flex flex-column">
                 <h2 className="pixel">Lite</h2>
-                <p className="price neon-text">&#2547;<CountUp from={0} to={12200} duration={2} separator="," /> <span className="fs-6">/ month</span></p>
+                <p className="price neon-text">$<CountUp from={0} to={100} duration={2} separator="," /> <span className="fs-6">/ month</span></p>
                 <p className="mt-2">Basic WhatsApp automation for small businesses getting started.</p>
                 <ul className="text-start mt-4 flex-grow-1">
                   <li>One Platform auto-replies</li>
                   <li>Customer Info Capture</li>
                   <li>Appointment routing</li>
-                  <li>Bangla + English support</li>
+                  <li>Multilingual support</li>
                   <li>Email notifications</li>
                 </ul>
                 <div className="mt-4">
@@ -54,7 +54,7 @@ export default function Pricing() {
             <div className="col-md-6 col-lg-4">
               <TiltedCard className="arcade-card h-100 d-flex flex-column">
                 <h2 className="pixel">Standard</h2>
-                <p className="price neon-text">&#2547;<CountUp from={0} to={18600} duration={2} delay={0.3} separator="," /> <span className="fs-6">/ month</span></p>
+                <p className="price neon-text">$<CountUp from={0} to={160} duration={2} delay={0.3} separator="," /> <span className="fs-6">/ month</span></p>
                 <p className="mt-2">Full WhatsApp agent with multi-platform support.</p>
                 <ul className="text-start mt-4 flex-grow-1">
                   <li>Everything in Lite, plus:</li>
