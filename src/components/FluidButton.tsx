@@ -113,7 +113,7 @@ export default function FluidButton({ onClick, label = "SPEAK", disabled = false
   return (
     <motion.button
       ref={containerRef}
-      style={{ x: sx, y: sy, opacity: disabled ? 0.4 : 1, cursor: disabled ? "default" : "pointer" } as React.CSSProperties}
+      style={{ x: sx, y: sy, opacity: disabled ? 0.4 : 1, cursor: disabled ? "default" : "pointer" } as any}
       className="relative flex-shrink-0 w-16 h-16 rounded-full overflow-hidden"
       onMouseMove={disabled ? undefined : handleMove}
       onMouseLeave={disabled ? undefined : handleLeave}
