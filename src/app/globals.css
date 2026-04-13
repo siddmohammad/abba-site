@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@300;400;600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── Design Tokens (Permanent Dark Mode) ─────────────── */
+:root {
+  --background:      #0D0D0D;
+  --foreground:      #C8CCDB;
+  --abba-green:      #39FF14;
+  --abba-dark:       #0D0D0D;
+  --abba-gray:       #C8CCDB;
+  --card-bg:         rgba(255, 255, 255, 0.04);
+  --card-border:     rgba(57, 255, 20, 0.12);
+  --nav-bg:          rgba(13, 13, 13, 0.88);
+  --nav-border:      rgba(57, 255, 20, 0.08);
+  --term-bg:         rgba(13, 13, 13, 0.80);
+  --term-header:     rgba(57, 255, 20, 0.06);
+  --logo-color:      #39FF14;
+  --chaos-particle:  rgba(57, 255, 20, 0.5);
+  --grain-opacity:   0.07;
+  --compliance-bg:   rgba(57, 255, 20, 0.05);
+  --compliance-border: rgba(57, 255, 20, 0.2);
+}
+
+/* ─── Tailwind Theme Mapping ───────────────────────────── */
+@theme inline {
+  --color-abba-green: var(--abba-green);
+  --color-abba-dark:  var(--abba-dark);
+  --color-abba-gray:  var(--abba-gray);
+  --font-sans:  'IBM Plex Mono', monospace;
+  --font-mono:  'IBM Plex Mono', monospace;
+  --font-pixel: 'Press Start 2P', monospace;
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'IBM Plex Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ─── Grain Noise (High Fidelity Risograph) ────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200vw; height: 200vh;
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain-shift 8s steps(10) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes grain-shift {
+  0%,100% { transform: translate(0,0); }
+  10%      { transform: translate(-2%,-3%); }
+  20%      { transform: translate(2%, 1%); }
+  30%      { transform: translate(-1%, 4%); }
+  40%      { transform: translate(3%,-2%); }
+  50%      { transform: translate(-3%, 3%); }
+  60%      { transform: translate(1%,-4%); }
+  70%      { transform: translate(-2%, 2%); }
+  80%      { transform: translate(4%,-1%); }
+  90%      { transform: translate(-1%,-2%); }
+}
+
+/* ─── Print Misalignment / Risograph Jitter ───────────── */
+.print-jitter {
+  text-shadow:
+     0.6px  0.6px 0 rgba(0, 255, 255, 0.45),
+    -0.6px -0.6px 0 rgba(255, 0, 255, 0.45);
+}
+.print-jitter-strong {
+  text-shadow:
+     1.2px  1px 0 rgba(0, 255, 255, 0.55),
+    -1.2px -1px 0 rgba(255, 0, 255, 0.55);
+}
+
+/* ─── Fonts ────────────────────────────────────────────── */
+.font-pixel { font-family: 'Press Start 2P', monospace; }
+
+/* ─── Neon Glow Utilities ──────────────────────────────── */
+.neon-glow {
+  box-shadow:
+    0 0 8px  rgba(57, 255, 20, 0.4),
+    0 0 20px rgba(57, 255, 20, 0.2),
+    0 0 40px rgba(57, 255, 20, 0.1);
+}
+.neon-text-glow {
+  text-shadow:
+    0 0 10px rgba(57, 255, 20, 0.7),
+    0 0 20px rgba(57, 255, 20, 0.4),
+    0 0 40px rgba(57, 255, 20, 0.2);
+}
+
+/* ─── Card Styles ──────────────────────────────────────── */
+.abba-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.abba-card:hover {
+  border-color: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.08);
+}
+
+/* ─── Compliance Badge ─────────────────────────────────── */
+.compliance-badge {
+  background: var(--compliance-bg);
+  border: 1px solid var(--compliance-border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--abba-green);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ─── ROI Calculator Slider ────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: rgba(57, 255, 20, 0.2);
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #39FF14;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(57, 255, 20, 0.6);
+  transition: box-shadow 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.8);
+}
+
+/* ─── Marquee ──────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--abba-green); border-radius: 2px; }
+
+/* ─── Selection ────────────────────────────────────────── */
+::selection {
+  background: rgba(57, 255, 20, 0.25);
+  color: var(--foreground);
+}
