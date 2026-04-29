@@ -573,30 +573,21 @@
     const micWrap    = document.getElementById('mic-wrap');
     const micBar     = document.getElementById('mic-bar');
 
-    /* ─── Config persistence ────────────────────────────── */
-    const LS = {
-      get: k => localStorage.getItem('abba_demo_' + k) || '',
-      set: (k, v) => localStorage.setItem('abba_demo_' + k, v),
+    /* ─── Hardcoded config ───────────────────────────────── */
+    const CONFIG = {
+      clinic: 'Glow Aesthetics',
+      pubkey: '10f1e6a8-f45a-455f-ae10-f25249b94a61',
+      asst:   'f3ee166c-3f23-44dc-b1cf-150c6a0b97bc',
     };
 
-    function loadConfig() {
-      cfgClinic.value = LS.get('clinic') || 'Glow Aesthetics';
-      cfgPubkey.value = LS.get('pubkey');
-      cfgAsst.value   = LS.get('asst');
-      clinicDisp.textContent = cfgClinic.value;
-    }
+    const LS = {
+      get: k => CONFIG[k] || '',
+      set: () => {},  // no-op — config is hardcoded
+    };
 
-    function saveConfig() {
-      LS.set('clinic', cfgClinic.value.trim() || 'Glow Aesthetics');
-      LS.set('pubkey', cfgPubkey.value.trim());
-      LS.set('asst',   cfgAsst.value.trim());
-      clinicDisp.textContent = cfgClinic.value.trim() || 'Glow Aesthetics';
-      showToast('✅ Config saved');
-      initVapi();
-    }
-
-    saveBtn.addEventListener('click', saveConfig);
-    loadConfig();
+    // Hide the config bar — not needed for shareable demo
+    document.getElementById('config-bar').style.display = 'none';
+    clinicDisp.textContent = CONFIG.clinic;
 
     /* ─── VAPI instance ─────────────────────────────────── */
     let vapi = null;
