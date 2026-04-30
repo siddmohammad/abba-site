@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABBA AI Reception Demo</title>
+  <title>ABBA Clinic · AI Receptionist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Design tokens ─────────────────────────────────── */
     :root {
       --green-deep:  #1B3A2D;
       --green-mid:   #2D5A42;
       --green-card:  #243D30;
       --green-light: #3D7A5A;
-      --green-hover: #4A9169;
       --cream:       #F5F0E8;
       --cream-dim:   #C8BFA8;
       --cream-faint: #9B9080;
@@ -24,11 +22,9 @@
       --danger:      #E05252;
       --shadow:      0 8px 40px rgba(0,0,0,0.35);
       --radius:      16px;
-      --radius-sm:   10px;
       --transition:  0.25s ease;
     }
 
-    /* ── Reset & base ──────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -41,63 +37,10 @@
       align-items: center;
     }
 
-    /* ── Config bar ────────────────────────────────────── */
-    #config-bar {
-      width: 100%;
-      background: rgba(0,0,0,0.25);
-      border-bottom: 1px solid rgba(201,169,110,0.2);
-      padding: 14px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-      justify-content: center;
-    }
-    #config-bar label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--cream-dim);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      min-width: 180px;
-    }
-    #config-bar input {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(201,169,110,0.3);
-      border-radius: 8px;
-      color: var(--cream);
-      font-size: 13px;
-      padding: 7px 11px;
-      outline: none;
-      transition: border-color var(--transition);
-      font-family: 'Inter', sans-serif;
-    }
-    #config-bar input:focus { border-color: var(--gold); }
-    #config-bar input::placeholder { color: var(--cream-faint); }
-    #save-btn {
-      background: var(--gold);
-      color: var(--green-deep);
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 9px 20px;
-      cursor: pointer;
-      transition: background var(--transition), transform 0.1s;
-      white-space: nowrap;
-      align-self: flex-end;
-      margin-bottom: 0px;
-    }
-    #save-btn:hover { background: var(--gold-light); }
-    #save-btn:active { transform: scale(0.97); }
-
-    /* ── Brand header ──────────────────────────────────── */
+    /* ── Header ── */
     header {
       text-align: center;
-      padding: 40px 24px 16px;
+      padding: 48px 24px 16px;
     }
     .brand-pill {
       display: inline-flex;
@@ -113,6 +56,11 @@
       width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.55; transform: scale(0.82); }
     }
     .brand-pill span {
       font-size: 11px;
@@ -121,7 +69,7 @@
       text-transform: uppercase;
       color: var(--gold);
     }
-    #clinic-name-display {
+    h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(28px, 5vw, 44px);
       font-weight: 700;
@@ -137,7 +85,25 @@
       letter-spacing: 0.02em;
     }
 
-    /* ── Main demo card ────────────────────────────────── */
+    /* ── Info pills ── */
+    .info-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px 0 0;
+    }
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cream-dim);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 4px 12px;
+    }
+
+    /* ── Card ── */
     #demo-card {
       background: var(--green-card);
       border: 1px solid rgba(201,169,110,0.15);
@@ -150,17 +116,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
     }
 
-    /* ── Avatar ────────────────────────────────────────── */
+    /* ── Avatar ── */
     #avatar-wrap {
       position: relative;
-      width: 120px;
-      height: 120px;
+      width: 120px; height: 120px;
       margin-bottom: 20px;
     }
-    /* ripple rings — only visible when .speaking */
     #avatar-wrap::before,
     #avatar-wrap::after {
       content: '';
@@ -172,19 +135,14 @@
       transform: scale(1);
       pointer-events: none;
     }
-    #avatar-wrap.speaking::before {
-      animation: ripple 1.6s ease-out infinite;
-    }
-    #avatar-wrap.speaking::after {
-      animation: ripple 1.6s ease-out 0.8s infinite;
-    }
+    #avatar-wrap.speaking::before { animation: ripple 1.6s ease-out infinite; }
+    #avatar-wrap.speaking::after  { animation: ripple 1.6s ease-out 0.8s infinite; }
     @keyframes ripple {
-      0%   { opacity: 0.5; transform: scale(1); }
+      0%   { opacity: 0.5; transform: scale(1);   }
       100% { opacity: 0;   transform: scale(1.7); }
     }
     #avatar-circle {
-      width: 120px;
-      height: 120px;
+      width: 120px; height: 120px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-light) 100%);
       border: 3px solid var(--gold);
@@ -215,8 +173,6 @@
       text-transform: uppercase;
       color: var(--gold);
     }
-
-    /* speaking bars (shown inside avatar while speaking) */
     #voice-bars {
       display: none;
       gap: 3px;
@@ -224,7 +180,7 @@
       height: 22px;
       margin-top: 4px;
     }
-    #avatar-wrap.speaking #voice-bars { display: flex; }
+    #avatar-wrap.speaking #voice-bars    { display: flex; }
     #avatar-wrap.speaking #avatar-initials { display: none; }
     .vbar {
       width: 4px;
@@ -242,13 +198,8 @@
       to   { transform: scaleY(1);   opacity: 1;   }
     }
 
-    /* ── Status / timer ────────────────────────────────── */
-    #status-text {
-      font-size: 13px;
-      color: var(--cream-dim);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
+    /* ── Status / timer ── */
+    #status-text { font-size: 13px; color: var(--cream-dim); font-weight: 400; letter-spacing: 0.02em; }
     #call-timer {
       font-family: 'Playfair Display', serif;
       font-size: 38px;
@@ -260,10 +211,10 @@
     }
     #call-timer.ticking { color: var(--gold); }
 
-    /* ── Call button ───────────────────────────────────── */
+    /* ── Call button ── */
     #call-btn {
       width: 100%;
-      max-width: 240px;
+      max-width: 260px;
       padding: 15px 0;
       border-radius: 100px;
       border: none;
@@ -278,198 +229,83 @@
       box-shadow: 0 4px 20px rgba(201,169,110,0.3);
       margin-bottom: 28px;
     }
-    #call-btn:hover { background: var(--gold-light); box-shadow: 0 6px 28px rgba(201,169,110,0.45); }
+    #call-btn:hover  { background: var(--gold-light); box-shadow: 0 6px 28px rgba(201,169,110,0.45); }
     #call-btn:active { transform: scale(0.97); }
-    #call-btn.active {
-      background: var(--danger);
-      color: var(--white);
-      box-shadow: 0 4px 20px rgba(224,82,82,0.35);
-    }
+    #call-btn.active { background: var(--danger); color: var(--white); box-shadow: 0 4px 20px rgba(224,82,82,0.35); }
     #call-btn.active:hover { background: #eb6262; }
-    #call-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
+    #call-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* ── Transcript ────────────────────────────────────── */
-    .transcript-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .transcript-header span {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--cream-faint);
-    }
-    #clear-btn {
-      background: none;
-      border: none;
-      color: var(--cream-faint);
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      padding: 3px 7px;
-      border-radius: 5px;
-      transition: color var(--transition), background var(--transition);
-    }
-    #clear-btn:hover { color: var(--cream-dim); background: rgba(255,255,255,0.05); }
-    #transcript-box {
-      width: 100%;
-      min-height: 220px;
-      max-height: 340px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--green-light) transparent;
-      padding-right: 4px;
-    }
-    #transcript-box::-webkit-scrollbar { width: 4px; }
-    #transcript-box::-webkit-scrollbar-track { background: transparent; }
-    #transcript-box::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 4px; }
-    .placeholder-msg {
-      color: var(--cream-faint);
-      font-size: 13px;
-      text-align: center;
-      margin: auto;
-      font-style: italic;
-      opacity: 0.7;
-    }
-
-    /* chat bubbles */
-    .bubble-row {
-      display: flex;
-      gap: 9px;
-      align-items: flex-end;
-      animation: fadeUp 0.25s ease;
-    }
-    .bubble-row.assistant { justify-content: flex-start; }
-    .bubble-row.user      { justify-content: flex-end; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0);   }
-    }
-    .bubble-avatar {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--green-mid);
-      border: 1.5px solid var(--gold);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--gold);
-    }
-    .bubble-row.user .bubble-avatar {
-      background: var(--green-light);
-      border-color: var(--cream-dim);
-      color: var(--cream);
-    }
-    .bubble {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-size: 13.5px;
-      line-height: 1.5;
-      color: var(--cream);
-    }
-    .bubble-row.assistant .bubble {
-      background: var(--green-mid);
-      border-bottom-left-radius: 4px;
-    }
-    .bubble-row.user .bubble {
-      background: var(--green-light);
-      border-bottom-right-radius: 4px;
-    }
-    .bubble-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-    .bubble-row.user .bubble-label { color: var(--cream-dim); text-align: right; }
-
-    /* ── Mic level bar ─────────────────────────────────── */
-    #mic-wrap {
-      display: none;
-      width: 100%;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 4px;
-    }
+    /* ── Mic bar ── */
+    #mic-wrap { display: none; width: 100%; align-items: center; gap: 10px; margin-bottom: 4px; }
     #mic-wrap.visible { display: flex; }
-    #mic-label {
-      font-size: 11px;
-      color: var(--cream-faint);
-      white-space: nowrap;
-      font-weight: 500;
-    }
-    #mic-track {
-      flex: 1;
-      height: 6px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 3px;
-      overflow: hidden;
-    }
+    #mic-label { font-size: 11px; color: var(--cream-faint); white-space: nowrap; font-weight: 500; }
+    #mic-track { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
     #mic-bar {
-      height: 100%;
-      width: 0%;
+      height: 100%; width: 0%;
       background: var(--gold);
       border-radius: 3px;
       transition: width 0.08s ease, opacity 0.1s ease;
       opacity: 0.3;
     }
 
-    /* ── Powered by footer ─────────────────────────────── */
-    footer {
-      text-align: center;
-      padding: 28px 16px 32px;
-      font-size: 12px;
-      color: var(--cream-faint);
-      letter-spacing: 0.05em;
+    /* ── Transcript ── */
+    .transcript-header { width: 100%; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .transcript-header span { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-faint); }
+    #clear-btn {
+      background: none; border: none; color: var(--cream-faint);
+      font-size: 11px; font-weight: 500; cursor: pointer;
+      font-family: 'Inter', sans-serif; padding: 3px 7px; border-radius: 5px;
+      transition: color var(--transition), background var(--transition);
     }
+    #clear-btn:hover { color: var(--cream-dim); background: rgba(255,255,255,0.05); }
+    #transcript-box {
+      width: 100%; min-height: 220px; max-height: 340px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 10px;
+      scrollbar-width: thin; scrollbar-color: var(--green-light) transparent; padding-right: 4px;
+    }
+    #transcript-box::-webkit-scrollbar       { width: 4px; }
+    #transcript-box::-webkit-scrollbar-track { background: transparent; }
+    #transcript-box::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 4px; }
+    .placeholder-msg { color: var(--cream-faint); font-size: 13px; text-align: center; margin: auto; font-style: italic; opacity: 0.7; }
+    .bubble-row { display: flex; gap: 9px; align-items: flex-end; animation: fadeUp 0.25s ease; }
+    .bubble-row.assistant { justify-content: flex-start; }
+    .bubble-row.user      { justify-content: flex-end; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .bubble-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--green-mid); border: 1.5px solid var(--gold);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--gold);
+    }
+    .bubble-row.user .bubble-avatar { background: var(--green-light); border-color: var(--cream-dim); color: var(--cream); }
+    .bubble { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; color: var(--cream); }
+    .bubble-row.assistant .bubble { background: var(--green-mid); border-bottom-left-radius: 4px; }
+    .bubble-row.user      .bubble { background: var(--green-light); border-bottom-right-radius: 4px; }
+    .bubble-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .bubble-row.user .bubble-label { color: var(--cream-dim); text-align: right; }
+
+    /* ── Footer ── */
+    footer { text-align: center; padding: 28px 16px 32px; font-size: 12px; color: var(--cream-faint); letter-spacing: 0.05em; }
     footer a { color: var(--gold); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* ── Notification toast ────────────────────────────── */
+    /* ── Toast ── */
     #toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
+      position: fixed; bottom: 24px; left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: var(--green-mid);
-      border: 1px solid rgba(201,169,110,0.3);
-      color: var(--cream);
-      font-size: 13px;
-      padding: 11px 20px;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-      z-index: 100;
-      white-space: nowrap;
-      pointer-events: none;
+      background: var(--green-mid); border: 1px solid rgba(201,169,110,0.3);
+      color: var(--cream); font-size: 13px; padding: 11px 20px; border-radius: 10px;
+      box-shadow: var(--shadow); transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0; z-index: 100; white-space: nowrap; pointer-events: none;
     }
     #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    /* ── Mobile ────────────────────────────────────────── */
     @media (max-width: 560px) {
-      #config-bar label { min-width: 140px; }
       #demo-card { margin: 16px 12px 0; padding: 28px 18px 20px; }
-      #avatar-wrap { width: 100px; height: 100px; }
-      #avatar-circle { width: 100px; height: 100px; }
+      #avatar-wrap, #avatar-circle { width: 100px; height: 100px; }
       #avatar-initials { font-size: 30px; }
       #call-timer { font-size: 30px; }
     }
@@ -477,65 +313,43 @@
 </head>
 <body>
 
-  <!-- ── Config bar ──────────────────────────────────────── -->
-  <div id="config-bar">
-    <label>
-      Clinic Name
-      <input id="cfg-clinic" type="text" value="Glow Aesthetics" placeholder="Clinic Name" />
-    </label>
-    <label>
-      VAPI Public Key
-      <input id="cfg-pubkey" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
-    </label>
-    <label>
-      Assistant ID
-      <input id="cfg-asst" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
-    </label>
-    <button id="save-btn">Save Config</button>
-  </div>
-
-  <!-- ── Brand header ─────────────────────────────────────── -->
   <header>
     <div class="brand-pill">
       <div class="brand-dot"></div>
       <span>AI Reception · Live Demo</span>
     </div>
-    <h1 id="clinic-name-display">Glow Aesthetics</h1>
+    <h1>ABBA Clinic</h1>
     <p class="tagline">Experience next-generation patient communication</p>
+    <div class="info-pills">
+      <span class="pill">🇧🇩 Bengali &amp; English</span>
+      <span class="pill">📅 Book appointments</span>
+      <span class="pill">🕐 24/7 available</span>
+    </div>
   </header>
 
-  <!-- ── Demo card ─────────────────────────────────────────── -->
   <main id="demo-card">
 
-    <!-- Avatar -->
     <div id="avatar-wrap">
       <div id="avatar-circle">
         <div id="avatar-initials">R</div>
         <div id="voice-bars">
-          <div class="vbar"></div>
-          <div class="vbar"></div>
-          <div class="vbar"></div>
-          <div class="vbar"></div>
-          <div class="vbar"></div>
+          <div class="vbar"></div><div class="vbar"></div><div class="vbar"></div>
+          <div class="vbar"></div><div class="vbar"></div>
         </div>
-        <div id="avatar-name-label">Riya</div>
+        <div id="avatar-name-label">Rina</div>
       </div>
     </div>
 
-    <!-- Status / timer -->
     <p id="status-text">Ready to connect</p>
     <div id="call-timer">00:00</div>
 
-    <!-- Mic level bar (visible only during call) -->
     <div id="mic-wrap">
       <span id="mic-label">🎤 Your mic</span>
       <div id="mic-track"><div id="mic-bar"></div></div>
     </div>
 
-    <!-- Call button -->
-    <button id="call-btn">📞 &nbsp;Start Call with Riya</button>
+    <button id="call-btn">📞 &nbsp;Speak with Rina</button>
 
-    <!-- Transcript -->
     <div class="transcript-header">
       <span>Live Transcript</span>
       <button id="clear-btn">Clear</button>
@@ -546,23 +360,18 @@
 
   </main>
 
-  <!-- ── Footer ───────────────────────────────────────────── -->
   <footer>
     Powered by <a href="https://getabba.info" target="_blank">ABBA</a> &nbsp;·&nbsp; AI-powered clinic reception
   </footer>
 
-  <!-- ── Toast ────────────────────────────────────────────── -->
   <div id="toast"></div>
 
   <script type="module">
     import Vapi from 'https://esm.sh/@vapi-ai/web';
 
-    /* ─── DOM refs ──────────────────────────────────────── */
-    const cfgClinic  = document.getElementById('cfg-clinic');
-    const cfgPubkey  = document.getElementById('cfg-pubkey');
-    const cfgAsst    = document.getElementById('cfg-asst');
-    const saveBtn    = document.getElementById('save-btn');
-    const clinicDisp = document.getElementById('clinic-name-display');
+    const VAPI_PUBLIC_KEY   = '10f1e6a8-f45a-455f-ae10-f25249b94a61';
+    const VAPI_ASSISTANT_ID = 'f3ee166c-3f23-44dc-b1cf-150c6a0b97bc';
+
     const avatarWrap = document.getElementById('avatar-wrap');
     const statusTxt  = document.getElementById('status-text');
     const timerEl    = document.getElementById('call-timer');
@@ -573,70 +382,29 @@
     const micWrap    = document.getElementById('mic-wrap');
     const micBar     = document.getElementById('mic-bar');
 
-    /* ─── Hardcoded config ───────────────────────────────── */
-    const CONFIG = {
-      clinic: 'Glow Aesthetics',
-      pubkey: '10f1e6a8-f45a-455f-ae10-f25249b94a61',
-      asst:   'f3ee166c-3f23-44dc-b1cf-150c6a0b97bc',
-    };
-
-    const LS = {
-      get: k => CONFIG[k] || '',
-      set: () => {},  // no-op — config is hardcoded
-    };
-
-    // Hide the config bar — not needed for shareable demo
-    document.getElementById('config-bar').style.display = 'none';
-    clinicDisp.textContent = CONFIG.clinic;
-
-    /* ─── VAPI instance ─────────────────────────────────── */
-    let vapi = null;
-    let isCallActive = false;
-    let isConnecting = false;
-    let timerInterval = null;
-    let timerSeconds = 0;
+    let vapi = null, isCallActive = false, isConnecting = false;
+    let timerInterval = null, timerSeconds = 0;
 
     function initVapi() {
-      const pubkey = LS.get('pubkey');
-      if (!pubkey) return;
       if (vapi) { try { vapi.stop(); } catch(e) {} }
-      vapi = new Vapi(pubkey);
+      vapi = new Vapi(VAPI_PUBLIC_KEY);
       bindEvents();
     }
 
-    /* ─── Call control ──────────────────────────────────── */
     callBtn.addEventListener('click', async () => {
-      // End call if active
-      if (isCallActive) { endCall(); return; }
-      // Prevent double-tap while connecting
-      if (isConnecting) return;
-
-      const pubkey = LS.get('pubkey');
-      const asst   = LS.get('asst');
-      if (!pubkey || !asst) {
-        showToast('⚠️ Please save your VAPI Public Key and Assistant ID first');
-        return;
-      }
-
-      // VAPI handles getUserMedia internally — don't pre-acquire the mic
-      // as stopping a test stream can cause a silent-mic race condition
+      if (isCallActive)  { endCall(); return; }
+      if (isConnecting)  return;
       if (!vapi) initVapi();
       isConnecting = true;
       callBtn.textContent = '⏳  Connecting…';
       callBtn.classList.add('active');
       setStatus('Connecting…', false);
-
-      try {
-        vapi.start(asst);
-      } catch(err) {
-        resetCallState();
-        showToast('❌ ' + (err.message || 'Could not start call'));
-      }
+      try { vapi.start(VAPI_ASSISTANT_ID); }
+      catch(err) { resetCallState(); showToast('❌ ' + (err.message || 'Could not start call')); }
     });
 
     function endCall() {
       try { if (vapi) vapi.stop(); } catch(e) {}
-      // Reset immediately — don't wait for call-end in case it's slow
       resetCallState();
       setStatus('Call ended', false);
       showToast('✅ Call ended');
@@ -644,28 +412,23 @@
     }
 
     function resetCallState() {
-      isCallActive = false;
-      isConnecting = false;
-      callBtn.innerHTML = '📞 &nbsp;Start Call with Riya';
+      isCallActive = false; isConnecting = false;
+      callBtn.innerHTML = '📞 &nbsp;Speak with Rina';
       callBtn.classList.remove('active');
       avatarWrap.classList.remove('speaking');
       micWrap.classList.remove('visible');
       micBar.style.width = '0%';
     }
 
-    /* ─── VAPI events ───────────────────────────────────── */
     function bindEvents() {
       vapi.on('call-start', () => {
-        isCallActive = true;
-        isConnecting = false;
+        isCallActive = true; isConnecting = false;
         callBtn.textContent = '📵  End Call';
         callBtn.classList.add('active');
         micWrap.classList.add('visible');
-        // Ensure mic is unmuted
         try { if (vapi.isMuted()) vapi.setMuted(false); } catch(e) {}
-        setStatus('Connected · Riya is listening', true);
-        startTimer();
-        clearPlaceholder();
+        setStatus('Connected · Rina is listening', true);
+        startTimer(); clearPlaceholder();
         showToast('📞 Call connected');
       });
 
@@ -676,7 +439,6 @@
       });
 
       vapi.on('call-end', () => {
-        // Only handle if we haven't already reset (e.g. endCall() was pressed)
         if (isCallActive || isConnecting) {
           resetCallState();
           setStatus('Call ended', false);
@@ -686,82 +448,62 @@
       });
 
       vapi.on('speech-start', () => {
-        // In v2.5.2 speech-start can fire before call-start — activate the
-        // end-call button here so the user is never stuck on "Connecting…"
         if (isConnecting && !isCallActive) {
-          isCallActive = true;
-          isConnecting = false;
+          isCallActive = true; isConnecting = false;
           callBtn.textContent = '📵  End Call';
           micWrap.classList.add('visible');
           try { if (vapi.isMuted()) vapi.setMuted(false); } catch(e) {}
-          startTimer();
-          clearPlaceholder();
+          startTimer(); clearPlaceholder();
         }
         avatarWrap.classList.add('speaking');
-        setStatus('Riya is speaking…', true);
+        setStatus('Rina is speaking…', true);
       });
 
       vapi.on('speech-end', () => {
         avatarWrap.classList.remove('speaking');
-        setStatus('Connected · Riya is listening', true);
+        setStatus('Connected · Rina is listening', true);
       });
 
       vapi.on('message', (msg) => {
-        if (msg.type === 'transcript' && msg.transcriptType === 'final') {
+        if (msg.type === 'transcript' && msg.transcriptType === 'final')
           appendBubble(msg.role, msg.transcript);
-        }
       });
 
       vapi.on('volume-level', (vol) => {
-        // vol is 0–1; light up mic bar when user is speaking
         const pct = Math.min(100, Math.round(vol * 100));
         micBar.style.width = pct + '%';
         micBar.style.opacity = pct > 3 ? '1' : '0.3';
       });
 
       vapi.on('error', (err) => {
-        console.error('VAPI error:', err);
         const msg = err?.error?.message || err?.message || 'A VAPI error occurred';
         if (/permission|microphone|getusermedia|notallowed/i.test(msg)) {
           resetCallState();
           setStatus('Microphone blocked', false);
-          showToast('❌ Microphone access denied — click the 🔒 in your address bar, allow mic, then retry');
+          showToast('❌ Allow microphone access then retry');
         } else {
           showToast('⚠️ ' + msg);
         }
       });
     }
 
-    /* ─── Status helper ─────────────────────────────────── */
     function setStatus(text, active) {
       statusTxt.textContent = text;
       statusTxt.style.color = active ? 'var(--gold)' : 'var(--cream-dim)';
     }
 
-    /* ─── Timer ─────────────────────────────────────────── */
     function startTimer() {
-      timerSeconds = 0;
-      renderTimer();
+      timerSeconds = 0; renderTimer();
       timerEl.classList.add('ticking');
-      timerInterval = setInterval(() => {
-        timerSeconds++;
-        renderTimer();
-      }, 1000);
+      timerInterval = setInterval(() => { timerSeconds++; renderTimer(); }, 1000);
     }
-
-    function stopTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerEl.classList.remove('ticking');
-    }
-
+    function stopTimer() { clearInterval(timerInterval); timerInterval = null; timerEl.classList.remove('ticking'); }
     function renderTimer() {
       const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
       const s = (timerSeconds % 60).toString().padStart(2, '0');
       timerEl.textContent = m + ':' + s;
     }
 
-    /* ─── Transcript ─────────────────────────────────────── */
     function clearPlaceholder() {
       const ph = txBox.querySelector('.placeholder-msg');
       if (ph) ph.remove();
@@ -772,32 +514,20 @@
       const isAssistant = role === 'assistant';
       const row = document.createElement('div');
       row.className = 'bubble-row ' + (isAssistant ? 'assistant' : 'user');
-
       const ava = document.createElement('div');
       ava.className = 'bubble-avatar';
       ava.textContent = isAssistant ? 'R' : 'U';
-
       const bubble = document.createElement('div');
       bubble.className = 'bubble';
-
       const label = document.createElement('div');
       label.className = 'bubble-label';
-      label.textContent = isAssistant ? 'Riya' : 'You';
-
+      label.textContent = isAssistant ? 'Rina' : 'You';
       const txt = document.createElement('div');
       txt.textContent = text;
-
       bubble.appendChild(label);
       bubble.appendChild(txt);
-
-      if (isAssistant) {
-        row.appendChild(ava);
-        row.appendChild(bubble);
-      } else {
-        row.appendChild(bubble);
-        row.appendChild(ava);
-      }
-
+      if (isAssistant) { row.appendChild(ava); row.appendChild(bubble); }
+      else             { row.appendChild(bubble); row.appendChild(ava); }
       txBox.appendChild(row);
       txBox.scrollTop = txBox.scrollHeight;
     }
@@ -806,7 +536,6 @@
       txBox.innerHTML = '<p class="placeholder-msg">Your conversation will appear here…</p>';
     });
 
-    /* ─── Toast ─────────────────────────────────────────── */
     let toastTimer = null;
     function showToast(msg) {
       toast.textContent = msg;
@@ -815,14 +544,7 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
     }
 
-    /* ─── Boot ───────────────────────────────────────────── */
-    // Auto-init VAPI if key is already saved
-    if (LS.get('pubkey')) initVapi();
-
-    // Live-update clinic name from config input
-    cfgClinic.addEventListener('input', () => {
-      clinicDisp.textContent = cfgClinic.value || 'Glow Aesthetics';
-    });
+    initVapi();
   </script>
 
 </body>
