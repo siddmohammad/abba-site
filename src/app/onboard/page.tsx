@@ -22,7 +22,6 @@ const INITIAL_FORM = {
   business_type: '',
   business_type_other: '',
   business_address: '',
-  business_hours: '',
   opening_time: '',
   closing_time: '',
   open_days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
@@ -66,7 +65,6 @@ export default function OnboardPage() {
     if (!form.company_name.trim()) errs.company_name = 'Clinic name is required';
     if (!form.business_type) errs.business_type = 'Business type is required';
     if (!form.business_address.trim()) errs.business_address = 'Business address is required';
-    if (!form.business_hours.trim()) errs.business_hours = 'Business hours are required';
     if (!form.owner_name.trim()) errs.owner_name = 'Owner name is required';
     if (!form.owner_email.trim()) {
       errs.owner_email = 'Email is required';
@@ -101,17 +99,25 @@ export default function OnboardPage() {
       const resolvedBusinessType = form.business_type === 'Other'
         ? (form.business_type_other.trim() || 'Other')
         : form.business_type;
+      const dayLabels: Record<string, string> = { mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun' };
+      const daysStr = form.open_days.map(d => dayLabels[d] ?? d).join(', ');
+      const hoursStr = form.opening_time && form.closing_time
+        ? `${form.opening_time} – ${form.closing_time}, ${daysStr}`
+        : daysStr || '24/7';
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
           open_days: form.open_days.join(','),
+          business_hours: hoursStr,
           business_type: resolvedBusinessType,
         }),
       });
       if (!res.ok) throw new Error(`Server error (${res.status})`);
-      const data = await res.json();
+      const text = await res.text();
+      let data: any = {};
+      try { if (text) data = JSON.parse(text); } catch {}
       if (data.success === false) throw new Error(data.message || 'Provisioning failed');
       setStatus('success');
     } catch (err: any) {
@@ -227,19 +233,6 @@ export default function OnboardPage() {
                   placeholder="Full address including area and city"
                 />
                 <FieldError msg={errors.business_address} />
-              </div>
-
-              <div className="mb-6">
-                <label className="onboard-label">Business Hours *</label>
-                <input
-                  type="text"
-                  name="business_hours"
-                  value={form.business_hours}
-                  onChange={handleChange}
-                  className={`onboard-input${errors.business_hours ? ' onboard-input--error' : ''}`}
-                  placeholder="e.g. 9am–6pm Saturday–Thursday"
-                />
-                <FieldError msg={errors.business_hours} />
               </div>
 
               {/* Structured open hours for bot-silence logic */}
