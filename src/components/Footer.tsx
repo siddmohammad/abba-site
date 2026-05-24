@@ -4,23 +4,20 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
-  Platform: [
-    { label: "Features",      href: "#features" },
-    { label: "How it Works",  href: "#how-it-works" },
-    { label: "Pricing",       href: "#pricing" },
-    { label: "Book a Demo",   href: "https://wa.me/8801328446600" },
+  Services: [
+    { label: "Voice Agents",          href: "#capabilities" },
+    { label: "Agentic Workflows",     href: "#capabilities" },
+    { label: "Intake Engines",        href: "#capabilities" },
+    { label: "Book an Audit",         href: "#contact" },
   ],
   Company: [
-    { label: "About Us",      href: "/" },
-    { label: "Case Studies",  href: "#results" },
-    { label: "Blog",          href: "/" },
-    { label: "Careers",       href: "/" },
+    { label: "getabba.info",          href: "https://getabba.info" },
+    { label: "LinkedIn",              href: "https://linkedin.com/company/always-building-better-automations" },
+    { label: "WhatsApp",              href: "https://wa.me/8801328446600" },
   ],
-  Support: [
-    { label: "Documentation", href: "https://getabba.info/docs" },
-    { label: "WhatsApp Us",   href: "https://wa.me/8801328446600" },
-    { label: "Terms of Use",  href: "/terms" },
-    { label: "Privacy Policy",href: "/privacy" },
+  Legal: [
+    { label: "Terms of Use",          href: "/terms" },
+    { label: "Privacy Policy",        href: "/privacy" },
   ],
 };
 
@@ -85,7 +82,7 @@ export default function Footer() {
             ABBA
           </span>
           <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--foreground)", opacity: 0.5 }}>
-            AI-powered reception for clinics who refuse to miss a lead. 24/7. Every channel. One platform.
+            Always Building Better Automations. Custom AI systems for businesses that want to operate at a higher level.
           </p>
 
           {/* Neon dot divider */}
@@ -150,7 +147,7 @@ export default function Footer() {
             Stay Updated
           </h4>
           <p className="text-xs leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.45 }}>
-            Weekly automation insights for clinic operators.
+            AI infrastructure insights for operators who build differently.
           </p>
 
           {subState === "done" ? (
@@ -172,7 +169,7 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={handleKey}
-                placeholder="doctor@clinic.com"
+                placeholder="you@company.com"
                 disabled={subState === "loading"}
                 className="flex-1 bg-transparent px-4 py-3 text-xs outline-none"
                 style={{

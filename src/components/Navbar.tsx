@@ -4,10 +4,9 @@ import React, { useRef, useState } from "react";
 import { motion, useScroll, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Features",      href: "#features" },
-  { label: "How it Works",  href: "#how-it-works" },
-  { label: "Results",       href: "#results" },
-  { label: "Pricing",       href: "#pricing" },
+  { label: "Capabilities",  href: "#capabilities" },
+  { label: "Process",       href: "#process" },
+  { label: "Contact",       href: "#contact" },
 ];
 
 const SPRING = { type: "spring" as const, stiffness: 300, damping: 28 };
@@ -52,7 +51,7 @@ export default function Navbar() {
         <motion.a href="/" style={{ x: sx, y: sy }}>
           <motion.span
             ref={logoRef}
-            className="font-pixel text-sm md:text-base tracking-widest print-jitter select-none"
+            className="font-pixel text-lg md:text-2xl tracking-widest print-jitter select-none"
             style={{ color: "var(--logo-color)" }}
             whileHover={{ scale: 1.05 }}
             transition={SPRING}
@@ -81,7 +80,7 @@ export default function Navbar() {
 
         {/* Desktop CTA + Mobile Hamburger */}
         <div className="flex items-center gap-4">
-          <MagneticButton href="/onboard" label="Start Free Trial" className="hidden md:inline-flex" />
+          <MagneticButton href="#contact" label="Book an Audit" className="hidden md:inline-flex" />
 
           {/* Hamburger (mobile) */}
           <motion.button
@@ -141,8 +140,8 @@ export default function Navbar() {
               transition={{ ...SPRING, delay: 0.28 }}
             >
               <MagneticButton
-                href="/onboard"
-                label="Start Free Trial"
+                href="#contact"
+                label="Book an Audit"
                 onClick={() => setMobileOpen(false)}
               />
             </motion.div>

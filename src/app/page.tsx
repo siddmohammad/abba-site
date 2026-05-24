@@ -5,38 +5,74 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 import { gsap } from "gsap";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HowItWorksChat from "@/components/HowItWorksChat";
 import GlowCard from "@/components/GlowCard";
 import ChaosField from "@/components/ChaosField";
-import ComplianceBadges from "@/components/ComplianceBadges";
-import RoiCalculator from "@/components/RoiCalculator";
-import EhrShowcase from "@/components/EhrShowcase";
-import PricingChat from "@/components/PricingChat";
 
 const SPRING = { type: "spring" as const, stiffness: 200, damping: 24 };
 
-const FEATURES = [
+const CAPABILITIES = [
   {
     num: "01",
-    title: "Sub-1s Response",
-    body: "Faster than any human receptionist. Patients get a reply before they consider booking elsewhere.",
+    title: "Voice Agents",
+    body: "AI-powered voice systems that handle inbound calls, qualify leads, book appointments, and escalate to humans — 24/7, in any language.",
   },
   {
     num: "02",
-    title: "Every Channel",
-    body: "WhatsApp, Facebook Messenger, and Instagram DM — all handled simultaneously, zero extra staff.",
+    title: "Agentic Workflows",
+    body: "Multi-step AI agents that execute complex backend operations autonomously — contract generation, CRM handoffs, data processing, reporting.",
   },
   {
     num: "03",
-    title: "Infinite Scale",
-    body: "1 inquiry or 1,000. ABBA doesn't flinch. No overtime, no sick days, no burnout.",
+    title: "Omnichannel Intake Engines",
+    body: "Context-aware systems that capture, qualify, and respond to incoming inquiries across web, WhatsApp, email, and social — instantly.",
+  },
+];
+
+const PROBLEMS = [
+  {
+    num: "01",
+    title: "Generic SaaS",
+    body: "Off-the-shelf software forces your proven processes into rigid templates. You adapt to the tool. The tool never adapts to you.",
+  },
+  {
+    num: "02",
+    title: "Fragile Automation",
+    body: "Point-and-click automations break quietly under real load. A field gets renamed. An API shifts. Your pipeline chokes and someone cleans it up manually.",
+  },
+  {
+    num: "03",
+    title: "Disconnected Systems",
+    body: "Your CRM doesn't talk to your ops tool. Your ops tool doesn't talk to your inbox. Data leaks through every gap and nobody has the full picture.",
+  },
+];
+
+const PROCESS = [
+  {
+    num: "01",
+    title: "Operational Audit",
+    body: "We map your current workflows, identify the highest-leverage bottlenecks, and design an AI blueprint specific to your business.",
+  },
+  {
+    num: "02",
+    title: "Architecture",
+    body: "We design the full system — data flows, integrations, agent logic — before writing a single line of code.",
+  },
+  {
+    num: "03",
+    title: "Build",
+    body: "Custom development using n8n, Supabase, and purpose-built APIs. Nothing off-the-shelf. Everything production-grade.",
+  },
+  {
+    num: "04",
+    title: "Deploy & Own",
+    body: "You get full ownership of the system. No vendor lock-in, no monthly SaaS dependency, no black boxes.",
   },
 ];
 
 const STATS = [
-  { value: "90%", label: "Patient inquiry recovery rate" },
-  { value: "24h", label: "Time to go live after signup" },
-  { value: "3×", label: "Avg. revenue uplift per clinic" },
+  { value: "100%", label: "Custom-built, never templated" },
+  { value: "48h",  label: "Average time to first prototype" },
+  { value: "0×",   label: "Off-the-shelf tools used" },
 ];
 
 /* ──────────────────────────────────────────────────────── */
@@ -80,63 +116,79 @@ function MagneticCTA({ href = "#", children }: { href?: string; children: React.
   );
 }
 
+/* ──────────────────────────────────────────────────────── */
+/*  Hero Headline — GSAP word reveal                        */
+/* ──────────────────────────────────────────────────────── */
+const ACROSTIC = [
+  { letter: "A", rest: "lways" },
+  { letter: "B", rest: "uilding" },
+  { letter: "B", rest: "etter" },
+  { letter: "A", rest: "utomations" },
+];
 
-/* ──────────────────────────────────────────────────────── */
-/*  Hero Headline (GSAP SplitText-style word reveal)        */
-/* ──────────────────────────────────────────────────────── */
 function HeroHeadline() {
-  const ref = useRef<HTMLHeadingElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
-    const words = ref.current.querySelectorAll(".hw");
+    const rows = ref.current.querySelectorAll(".hw-row");
     gsap.fromTo(
-      words,
-      {
-        opacity: 0,
-        y: (i) => (i < 3 ? 40 : -10), // "chaos" words drop in hard, "calm" words float up gently
-        skewX: (i) => (i < 3 ? -8 : 2),
-        rotate: (i) => (i < 3 ? -3 : 0.5),
-      },
-      {
-        opacity: 1,
-        y: 0,
-        skewX: 0,
-        rotate: 0,
-        duration: 0.8,
-        stagger: 0.09,
-        ease: "elastic.out(1, 0.6)",
-        delay: 0.3,
-      }
+      rows,
+      { opacity: 0, x: -40, skewX: -6 },
+      { opacity: 1, x: 0, skewX: 0, duration: 0.75, stagger: 0.12, ease: "elastic.out(1, 0.65)", delay: 0.2 }
     );
   }, []);
 
   return (
-    <h1
-      ref={ref}
-      className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tighter print-jitter"
-      style={{ color: "var(--foreground)" }}
-    >
-      {/* Chaos words */}
-      {["Your", "clinic", "misses"].map((w) => (
-        <span key={w} className="hw inline-block mr-[0.25em]">{w}</span>
+    <div ref={ref} className="flex flex-col items-start gap-1 md:gap-2">
+      {ACROSTIC.map(({ letter, rest }, i) => (
+        <div
+          key={i}
+          className="hw-row flex items-baseline leading-none"
+          style={{ opacity: 0 }}
+        >
+          <motion.span
+            className="font-pixel print-jitter inline-block"
+            style={{
+              color: "#39FF14",
+              fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
+              lineHeight: 1,
+              minWidth: "1ch",
+            }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.8,
+              delay: i * 0.25,
+              ease: "easeInOut",
+            }}
+          >
+            {letter}
+          </motion.span>
+          <span
+            className="font-bold"
+            style={{
+              color: "var(--foreground)",
+              fontSize: "clamp(3.5rem, 8vw, 7rem)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1,
+            }}
+          >
+            {rest}
+          </span>
+        </div>
       ))}
-      {/* The flashpoint number */}
-      <motion.span
-        className="hw inline-block mr-[0.25em]"
-        style={{ color: "#39FF14" }}
-        initial={{ opacity: 0, scale: 1.4 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.55 }}
-      >
-        30%
-      </motion.span>
-      <br />
-      {/* Calm words */}
-      {["of", "patient", "inquiries."].map((w) => (
-        <span key={w} className="hw inline-block mr-[0.25em]">{w}</span>
-      ))}
-    </h1>
+    </div>
+  );
+}
+
+function SectionDivider() {
+  return (
+    <div className="px-6 md:px-16">
+      <div className="container mx-auto max-w-6xl">
+        <div style={{ height: "1px", background: "var(--card-border)", opacity: 0.5 }} />
+      </div>
+    </div>
   );
 }
 
@@ -145,26 +197,23 @@ function HeroHeadline() {
 /* ──────────────────────────────────────────────────────── */
 export default function Home() {
   const { scrollYProgress } = useScroll();
-  // Parallax for hero content on scroll
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -40]);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--background)" }}>
 
-      {/* Chaos particles — fixed background layer */}
       <ChaosField />
-
       <Navbar />
 
       <main className="relative z-10">
 
         {/* ══ HERO ══════════════════════════════════════════ */}
-        <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 pt-24 pb-16">
+        <section className="px-6 md:px-16 pt-32 pb-14">
           <motion.div
             style={{ y: heroY }}
             className="container mx-auto max-w-5xl flex flex-col items-center text-center gap-8"
           >
-            {/* Social proof pill */}
+            {/* Badge */}
             <motion.div
               className="inline-flex self-center items-center gap-2 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.25em]"
               style={{ border: "1px solid rgba(57,255,20,0.35)", color: "#39FF14" }}
@@ -178,7 +227,7 @@ export default function Home() {
                 animate={{ opacity: [1, 0.3, 1] }}
                 transition={{ repeat: Infinity, duration: 1.6 }}
               />
-              24/7 PATIENT CAPTURE ENGINE
+              Now taking on new clients — limited capacity
             </motion.div>
 
             <HeroHeadline />
@@ -190,9 +239,9 @@ export default function Home() {
               animate={{ opacity: 0.65, y: 0 }}
               transition={{ ...SPRING, delay: 0.7 }}
             >
-              Every missed call is a{" "}
-              <strong style={{ color: "var(--foreground)", opacity: 1 }}>$300 patient leak</strong>.
-              ABBA captures, qualifies, and books them — on WhatsApp, Facebook, and Instagram — while you sleep.
+              I build custom AI systems — voice agents, agentic workflows, and backend integrations — for businesses that want to{" "}
+              <strong style={{ color: "var(--foreground)", opacity: 1 }}>operate at a higher level</strong>.
+              No off-the-shelf software. No rigid templates. Built around you.
             </motion.p>
 
             {/* CTAs */}
@@ -202,16 +251,16 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...SPRING, delay: 0.85 }}
             >
-              <MagneticCTA href="/onboard">Start Free Trial →</MagneticCTA>
+              <MagneticCTA href="#contact">Book a Free Operational Audit →</MagneticCTA>
               <motion.a
-                href="#how-it-works"
+                href="#capabilities"
                 className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-widest rounded-sm"
                 style={{ border: "2px solid var(--card-border)", color: "var(--foreground)" } as React.CSSProperties}
                 whileHover={{ borderColor: "#39FF14", color: "#39FF14", x: 3 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                See How It Works
+                See What I Build
               </motion.a>
             </motion.div>
 
@@ -240,40 +289,39 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* ══ COMPLIANCE BADGES ══════════════════════════════ */}
-        <ComplianceBadges />
+        <SectionDivider />
 
-        {/* ══ FEATURES ══════════════════════════════════════ */}
-        <section id="features" className="py-28 px-6 md:px-16">
+        {/* ══ THE PROBLEM ═══════════════════════════════════ */}
+        <section className="py-14 px-6 md:px-16">
           <div className="container mx-auto max-w-6xl">
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={SPRING}
             >
               <div className="text-[10px] uppercase tracking-[0.5em] mb-4" style={{ color: "#39FF14" }}>
-                WHY ABBA
+                THE PROBLEM
               </div>
               <h2
                 className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
-                Built for the clinic that{" "}
-                <span style={{ color: "#39FF14" }}>can&apos;t afford to miss.</span>
+                Your tools weren&apos;t built{" "}
+                <span style={{ color: "#39FF14" }}>for your business.</span>
               </h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {FEATURES.map((f, i) => (
-                <GlowCard key={f.num} delay={i * 0.12}>
-                  <div className="font-pixel text-2xl mb-6" style={{ color: "#39FF14" }}>{f.num}</div>
+              {PROBLEMS.map((p, i) => (
+                <GlowCard key={p.num} delay={i * 0.12}>
+                  <div className="font-pixel text-2xl mb-6" style={{ color: "#39FF14" }}>{p.num}</div>
                   <h3 className="text-lg font-bold uppercase tracking-tight mb-3" style={{ color: "var(--foreground)" }}>
-                    {f.title}
+                    {p.title}
                   </h3>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.55 }}>
-                    {f.body}
+                    {p.body}
                   </p>
                 </GlowCard>
               ))}
@@ -281,69 +329,155 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ══ HOW IT WORKS / N8N CHAT ═══════════════════════ */}
-        <HowItWorksChat />
+        <SectionDivider />
 
-        {/* ══ RESULTS / SOCIAL PROOF ════════════════════════ */}
-        <section id="results" className="py-28 px-6 md:px-16">
-          <div className="container mx-auto max-w-5xl">
+        {/* ══ CAPABILITIES ══════════════════════════════════ */}
+        <section id="capabilities" className="py-14 px-6 md:px-16">
+          <div className="container mx-auto max-w-6xl">
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={SPRING}
             >
               <div className="text-[10px] uppercase tracking-[0.5em] mb-4" style={{ color: "#39FF14" }}>
-                SOCIAL PROOF
+                CAPABILITIES
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold print-jitter" style={{ color: "var(--foreground)" }}>
-                Real clinics. Real results.
+              <h2
+                className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
+                style={{ color: "var(--foreground)" }}
+              >
+                Three systems.{" "}
+                <span style={{ color: "#39FF14" }}>Infinite configurations.</span>
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                {
-                  quote: "ABBA turned our WhatsApp into a 24/7 desk. Weekend leads got answers fast — conversion went up 34% in the first month.",
-                  name: "Ratul Zaman",
-                  role: "Founder, Aesthetix Clinic",
-                },
-                {
-                  quote: "We were losing patients every Friday night. ABBA fixed that in 24 hours. Now my staff just confirms what the AI already arranged.",
-                  name: "Goutam Banik",
-                  role: "Director, MedSpa International",
-                },
-              ].map((t, i) => (
-                <GlowCard key={t.name} delay={i * 0.15}>
-                  <p className="text-sm leading-relaxed mb-6 italic" style={{ color: "var(--foreground)", opacity: 0.7 }}>
-                    &ldquo;{t.quote}&rdquo;
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {CAPABILITIES.map((c, i) => (
+                <GlowCard key={c.num} delay={i * 0.12}>
+                  <div className="font-pixel text-2xl mb-6" style={{ color: "#39FF14" }}>{c.num}</div>
+                  <h3 className="text-lg font-bold uppercase tracking-tight mb-3" style={{ color: "var(--foreground)" }}>
+                    {c.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.55 }}>
+                    {c.body}
                   </p>
-                  <div>
-                    <div className="font-bold text-xs" style={{ color: "#39FF14" }}>{t.name}</div>
-                    <div className="text-[10px] mt-0.5 opacity-40" style={{ color: "var(--foreground)" }}>{t.role}</div>
-                  </div>
                 </GlowCard>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ ROI CALCULATOR ════════════════════════════════ */}
-        <RoiCalculator />
+        <SectionDivider />
 
-        {/* ══ EHR SHOWCASE ══════════════════════════════════ */}
-        <EhrShowcase />
+        {/* ══ WHO THIS IS FOR ═══════════════════════════════ */}
+        <section className="py-14 px-6 md:px-16">
+          <div className="container mx-auto max-w-6xl">
+            <motion.div
+              className="text-center mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={SPRING}
+            >
+              <div className="text-[10px] uppercase tracking-[0.5em] mb-4" style={{ color: "#39FF14" }}>
+                WHO THIS IS FOR
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold print-jitter leading-tight" style={{ color: "var(--foreground)" }}>
+                If your business runs on repetitive operations,{" "}
+                <span style={{ color: "#39FF14" }}>we automate them.</span>
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--foreground)", opacity: 0.5 }}>
+                ABBA builds custom AI infrastructure for businesses integrating AI into their operations — not off-the-shelf tools, not templates. Systems designed around exactly how you work.
+              </p>
+            </motion.div>
 
-        {/* ══ PRICING CHAT ══════════════════════════════════ */}
-        <PricingChat />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+              {[
+                { icon: "⚖️", sector: "Professional Services", desc: "Law firms, accountants, and consultants automating client intake, document generation, and follow-up." },
+                { icon: "🏥", sector: "Healthcare & Clinics", desc: "Patient inquiry handling, appointment booking, and after-hours AI that never misses a lead." },
+                { icon: "🏠", sector: "Real Estate", desc: "Lead qualification, listing enquiry responses, and CRM handoffs running 24/7 without staff." },
+                { icon: "🛒", sector: "E-commerce & Retail", desc: "Order support, returns, and personalised customer communication at scale." },
+                { icon: "🏗️", sector: "Trades & Field Services", desc: "Job quoting, scheduling, and dispatch automation for teams that can't afford to miss a call." },
+                { icon: "📣", sector: "Agencies & Media", desc: "Automating client reporting, content workflows, and inbound lead handling end-to-end." },
+              ].map((item, i) => (
+                <GlowCard key={item.sector} delay={i * 0.08}>
+                  <div className="text-2xl mb-3">{item.icon}</div>
+                  <h3 className="text-sm font-bold uppercase tracking-tight mb-2" style={{ color: "var(--foreground)" }}>
+                    {item.sector}
+                  </h3>
+                  <p className="text-xs leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.55 }}>
+                    {item.desc}
+                  </p>
+                </GlowCard>
+              ))}
+            </div>
 
+            {/* Pull-quote */}
+            <motion.div
+              className="text-center px-6 py-8 rounded-xl mx-auto max-w-3xl"
+              style={{ background: "var(--card-bg)", border: "1px solid rgba(57,255,20,0.15)" }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...SPRING, delay: 0.2 }}
+            >
+              <p className="text-base md:text-lg font-bold leading-snug" style={{ color: "var(--foreground)" }}>
+                &ldquo;If you&apos;re searching for how to integrate AI into your business —<br />
+                <span style={{ color: "#39FF14" }}>you&apos;ve found the right team.&rdquo;</span>
+              </p>
+              <p className="mt-3 text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground)", opacity: 0.35 }}>
+                ABBA — Custom AI Systems
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
+        <SectionDivider />
 
+        {/* ══ PROCESS ═══════════════════════════════════════ */}
+        <section id="process" className="py-14 px-6 md:px-16">
+          <div className="container mx-auto max-w-6xl">
+            <motion.div
+              className="text-center mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={SPRING}
+            >
+              <div className="text-[10px] uppercase tracking-[0.5em] mb-4" style={{ color: "#39FF14" }}>
+                PROCESS
+              </div>
+              <h2
+                className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
+                style={{ color: "var(--foreground)" }}
+              >
+                Bespoke.{" "}
+                <span style={{ color: "#39FF14" }}>Every time.</span>
+              </h2>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {PROCESS.map((step, i) => (
+                <GlowCard key={step.num} delay={i * 0.1}>
+                  <div className="font-pixel text-2xl mb-6" style={{ color: "#39FF14" }}>{step.num}</div>
+                  <h3 className="text-lg font-bold uppercase tracking-tight mb-3" style={{ color: "var(--foreground)" }}>
+                    {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.55 }}>
+                    {step.body}
+                  </p>
+                </GlowCard>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <SectionDivider />
 
         {/* ══ FINAL CTA ═════════════════════════════════════ */}
-        <section className="py-32 px-6 md:px-16 text-center relative overflow-hidden">
-          {/* Pulsing glow orb */}
+        <section id="contact" className="py-16 px-6 md:px-16 text-center relative overflow-hidden">
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none"
             style={{ background: "radial-gradient(circle, rgba(57,255,20,0.08), transparent 70%)" }}
@@ -359,8 +493,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={SPRING}
             >
-              Sleep well.{" "}
-              <span style={{ color: "#39FF14" }}>ABBA&apos;s got the night.</span>
+              Ready to stop patching{" "}
+              <span style={{ color: "#39FF14" }}>and start building?</span>
             </motion.h2>
             <motion.p
               className="text-base leading-relaxed max-w-lg"
@@ -370,7 +504,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Join clinics across the region who haven&apos;t missed a single after-hours lead since going live with ABBA.
+              Book a free 45-minute Operational Audit. We&apos;ll map your bottlenecks and outline exactly what a custom AI system would look like for your business. No pitch. Just clarity.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -378,10 +512,10 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ ...SPRING, delay: 0.3 }}
             >
-              <MagneticCTA href="/onboard">Start Free 14-Day Trial →</MagneticCTA>
+              <MagneticCTA href="mailto:dahamoody@gmail.com?subject=Operational%20Audit%20Request&body=Hi%2C%0A%0AI%27d%20like%20to%20book%20a%20free%20Operational%20Audit%20with%20ABBA.%0A%0AName%3A%20%0ACompany%3A%20%0ABiggest%20bottleneck%3A%20">Book Your Audit →</MagneticCTA>
             </motion.div>
             <p className="text-[10px] uppercase tracking-widest opacity-30" style={{ color: "var(--foreground)" }}>
-              No credit card · Live in 24 hours · WhatsApp support
+              Currently available for new engagements.
             </p>
           </div>
         </section>

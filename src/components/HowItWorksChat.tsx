@@ -10,7 +10,7 @@ import FluidButton from "./FluidButton";
 const SPRING = { type: "spring" as const, stiffness: 240, damping: 26 };
 
 const INITIAL_MSG =
-  "Hello — tell me your clinic's biggest patient communication challenge and I'll show you exactly how ABBA fixes it.";
+  "Hello — describe your biggest operational bottleneck and I'll map out exactly what a custom AI system would look like for your business.";
 
 export default function HowItWorksChat() {
   const { messages, isTyping, send, leadCaptured } = useN8nChat("how_it_works", INITIAL_MSG);
@@ -29,7 +29,7 @@ export default function HowItWorksChat() {
   }, [messages, isTyping]);
 
   return (
-    <section id="how-it-works" className="w-full py-28 px-6 md:px-16 flex flex-col items-center">
+    <section id="how-it-works" className="w-full py-14 px-6 md:px-16 flex flex-col items-center">
       {/* Label */}
       <motion.div
         className="text-[10px] uppercase tracking-[0.5em] mb-4"
@@ -39,7 +39,7 @@ export default function HowItWorksChat() {
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
       >
-        WORKFLOW DISCOVERY
+        OPERATIONAL AUDIT
       </motion.div>
 
       <motion.h2
@@ -50,8 +50,8 @@ export default function HowItWorksChat() {
         viewport={{ once: true }}
         transition={SPRING}
       >
-        Find out exactly how we{" "}
-        <span style={{ color: "#39FF14" }}>fix your clinic&apos;s leak.</span>
+        Tell us your bottleneck.{" "}
+        <span style={{ color: "#39FF14" }}>We&apos;ll design the fix.</span>
       </motion.h2>
 
       <motion.p
@@ -62,7 +62,7 @@ export default function HowItWorksChat() {
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
       >
-        Powered by ABBA&apos;s proprietary AI engine — trained on clinic inquiry patterns.
+        Powered by ABBA&apos;s operational AI — maps your workflows in real time and designs a bespoke system around them.
       </motion.p>
 
       {/* Terminal */}
@@ -194,7 +194,7 @@ export default function HowItWorksChat() {
           <NeonInput
             value={inputValue}
             onChange={setInputValue}
-            placeholder="Describe your clinic's biggest challenge..."
+            placeholder="Describe your biggest operational bottleneck..."
             onSubmit={handleSend}
             disabled={isTyping}
           />
