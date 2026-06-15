@@ -13,66 +13,66 @@ const SPRING = { type: "spring" as const, stiffness: 200, damping: 24 };
 const CAPABILITIES = [
   {
     num: "01",
-    title: "Voice Agents",
-    body: "AI-powered voice systems that handle inbound calls, qualify leads, book appointments, and escalate to humans — 24/7, in any language.",
+    title: "Sales & Demand Intelligence",
+    body: "AI-powered demand forecasting, SKU-wise and territory-wise. Early warning for stock shortages or overstock. Built on your historical data.",
   },
   {
     num: "02",
-    title: "Agentic Workflows",
-    body: "Multi-step AI agents that execute complex backend operations autonomously — contract generation, CRM handoffs, data processing, reporting.",
+    title: "Operational Dashboards",
+    body: "Automated management dashboards for sales, inventory, production, cash flow, and profitability — updated daily, no manual input.",
   },
   {
     num: "03",
-    title: "Omnichannel Intake Engines",
-    body: "Context-aware systems that capture, qualify, and respond to incoming inquiries across web, WhatsApp, email, and social — instantly.",
+    title: "Supply Chain & Procurement Analytics",
+    body: "Reorder signals, vendor ranking, purchase quantity optimization, and inventory health monitoring — all driven by your live data.",
   },
 ];
 
 const PROBLEMS = [
   {
     num: "01",
-    title: "Generic SaaS",
-    body: "Off-the-shelf software forces your proven processes into rigid templates. You adapt to the tool. The tool never adapts to you.",
+    title: "Manual Reporting",
+    body: "Your team compiles the same Excel reports every week. By the time a decision reaches you, the data is already 3 days old.",
   },
   {
     num: "02",
-    title: "Fragile Automation",
-    body: "Point-and-click automations break quietly under real load. A field gets renamed. An API shifts. Your pipeline chokes and someone cleans it up manually.",
+    title: "No Early Warnings",
+    body: "Stock-outs, overstock, cash crunches — they show up as problems, never as predictions. You react instead of plan.",
   },
   {
     num: "03",
     title: "Disconnected Systems",
-    body: "Your CRM doesn't talk to your ops tool. Your ops tool doesn't talk to your inbox. Data leaks through every gap and nobody has the full picture.",
+    body: "Your ERP has the numbers. Your management doesn't see them. The gap between data and decision costs you every month.",
   },
 ];
 
 const PROCESS = [
   {
     num: "01",
-    title: "Operational Audit",
-    body: "We map your current workflows, identify the highest-leverage bottlenecks, and design an AI blueprint specific to your business.",
+    title: "Readiness Assessment",
+    body: "We audit your data infrastructure, map your systems, and confirm what's possible before quoting anything. No surprises.",
   },
   {
     num: "02",
     title: "Architecture",
-    body: "We design the full system — data flows, integrations, agent logic — before writing a single line of code.",
+    body: "We design the full data pipeline — from your source systems to your dashboards — before building a single connection.",
   },
   {
     num: "03",
-    title: "Build",
-    body: "Custom development using n8n, Supabase, and purpose-built APIs. Nothing off-the-shelf. Everything production-grade.",
+    title: "Build (Phase by Phase)",
+    body: "We deliver in phases. You see value before committing to the next one. No big-bang projects.",
   },
   {
     num: "04",
-    title: "Deploy & Own",
-    body: "You get full ownership of the system. No vendor lock-in, no monthly SaaS dependency, no black boxes.",
+    title: "Own It",
+    body: "You own the system. No vendor lock-in, no SaaS dependency. Your data stays yours.",
   },
 ];
 
 const STATS = [
-  { value: "100%", label: "Custom-built, never templated" },
-  { value: "48h",  label: "Average time to first prototype" },
-  { value: "0×",   label: "Off-the-shelf tools used" },
+  { value: "Phase-based", label: "No big-bang commitments" },
+  { value: "Your data",   label: "We read, never overwrite" },
+  { value: "BDT-priced",  label: "Built for Bangladesh" },
 ];
 
 /* ──────────────────────────────────────────────────────── */
@@ -227,7 +227,7 @@ export default function Home() {
                 animate={{ opacity: [1, 0.3, 1] }}
                 transition={{ repeat: Infinity, duration: 1.6 }}
               />
-              Now taking on new clients — limited capacity
+              Now working with enterprise businesses across Bangladesh
             </motion.div>
 
             <HeroHeadline />
@@ -239,9 +239,8 @@ export default function Home() {
               animate={{ opacity: 0.65, y: 0 }}
               transition={{ ...SPRING, delay: 0.7 }}
             >
-              I build custom AI systems — voice agents, agentic workflows, and backend integrations — for businesses that want to{" "}
-              <strong style={{ color: "var(--foreground)", opacity: 1 }}>operate at a higher level</strong>.
-              No off-the-shelf software. No rigid templates. Built around you.
+              We build custom AI decision-support systems for FMCG, manufacturing, and enterprise businesses — demand forecasting, operational dashboards, supply chain intelligence.{" "}
+              <strong style={{ color: "var(--foreground)", opacity: 1 }}>Built on your data. Delivered in phases.</strong>
             </motion.p>
 
             {/* CTAs */}
@@ -251,7 +250,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...SPRING, delay: 0.85 }}
             >
-              <MagneticCTA href="#contact">Book a Free Operational Audit →</MagneticCTA>
+              <MagneticCTA href="#contact">Book a Free Readiness Assessment →</MagneticCTA>
               <motion.a
                 href="#capabilities"
                 className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-widest rounded-sm"
@@ -260,7 +259,7 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                See What I Build
+                See What We Build
               </motion.a>
             </motion.div>
 
@@ -308,8 +307,8 @@ export default function Home() {
                 className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
-                Your tools weren&apos;t built{" "}
-                <span style={{ color: "#39FF14" }}>for your business.</span>
+                Your data exists.{" "}
+                <span style={{ color: "#39FF14" }}>Your decisions don&apos;t use it.</span>
               </h2>
             </motion.div>
 
@@ -349,7 +348,7 @@ export default function Home() {
                 style={{ color: "var(--foreground)" }}
               >
                 Three systems.{" "}
-                <span style={{ color: "#39FF14" }}>Infinite configurations.</span>
+                <span style={{ color: "#39FF14" }}>One integrated picture.</span>
               </h2>
             </motion.div>
 
@@ -385,22 +384,22 @@ export default function Home() {
                 WHO THIS IS FOR
               </div>
               <h2 className="text-3xl md:text-5xl font-bold print-jitter leading-tight" style={{ color: "var(--foreground)" }}>
-                If your business runs on repetitive operations,{" "}
-                <span style={{ color: "#39FF14" }}>we automate them.</span>
+                Built for businesses where{" "}
+                <span style={{ color: "#39FF14" }}>data exists but decisions are still manual.</span>
               </h2>
               <p className="mt-4 text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--foreground)", opacity: 0.5 }}>
-                ABBA builds custom AI infrastructure for businesses integrating AI into their operations — not off-the-shelf tools, not templates. Systems designed around exactly how you work.
+                ABBA builds custom AI infrastructure for mid-to-large enterprises in Bangladesh — not off-the-shelf BI tools, not generic dashboards. Systems designed around how your business actually operates.
               </p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
               {[
-                { icon: "⚖️", sector: "Professional Services", desc: "Law firms, accountants, and consultants automating client intake, document generation, and follow-up." },
-                { icon: "🏥", sector: "Healthcare & Clinics", desc: "Patient inquiry handling, appointment booking, and after-hours AI that never misses a lead." },
-                { icon: "🏠", sector: "Real Estate", desc: "Lead qualification, listing enquiry responses, and CRM handoffs running 24/7 without staff." },
-                { icon: "🛒", sector: "E-commerce & Retail", desc: "Order support, returns, and personalised customer communication at scale." },
-                { icon: "🏗️", sector: "Trades & Field Services", desc: "Job quoting, scheduling, and dispatch automation for teams that can't afford to miss a call." },
-                { icon: "📣", sector: "Agencies & Media", desc: "Automating client reporting, content workflows, and inbound lead handling end-to-end." },
+                { icon: "🏭", sector: "FMCG & Consumer Products", desc: "Demand forecasting, distribution planning, and territory-wise profitability — built on your sales and dealer data." },
+                { icon: "⚙️", sector: "Manufacturing", desc: "Production scheduling, raw material control, capacity utilization, and wastage analytics." },
+                { icon: "🚚", sector: "Supply Chain & Distribution", desc: "Route optimization, inventory aging reports, vendor ranking, and stock-out risk alerts." },
+                { icon: "💰", sector: "Finance & Accounting", desc: "Cash operating cycle monitoring, working capital dashboards, and automated management reporting." },
+                { icon: "🛒", sector: "Retail & Trading", desc: "SKU-wise profitability, slow-moving stock identification, and automated reorder signals." },
+                { icon: "📊", sector: "Executive Leadership", desc: "CEO/CFO command dashboards, scenario planning, budget vs actual monitoring, and AI-generated exception reports." },
               ].map((item, i) => (
                 <GlowCard key={item.sector} delay={i * 0.08}>
                   <div className="text-2xl mb-3">{item.icon}</div>
@@ -424,8 +423,8 @@ export default function Home() {
               transition={{ ...SPRING, delay: 0.2 }}
             >
               <p className="text-base md:text-lg font-bold leading-snug" style={{ color: "var(--foreground)" }}>
-                &ldquo;If you&apos;re searching for how to integrate AI into your business —<br />
-                <span style={{ color: "#39FF14" }}>you&apos;ve found the right team.&rdquo;</span>
+                &ldquo;If your business has data but your management is still flying blind —<br />
+                <span style={{ color: "#39FF14" }}>that&apos;s exactly the problem we solve.&rdquo;</span>
               </p>
               <p className="mt-3 text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground)", opacity: 0.35 }}>
                 ABBA — Custom AI Systems
@@ -453,8 +452,8 @@ export default function Home() {
                 className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
-                Bespoke.{" "}
-                <span style={{ color: "#39FF14" }}>Every time.</span>
+                Phased.{" "}
+                <span style={{ color: "#39FF14" }}>De-risked. Every time.</span>
               </h2>
             </motion.div>
 
@@ -493,8 +492,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={SPRING}
             >
-              Ready to stop patching{" "}
-              <span style={{ color: "#39FF14" }}>and start building?</span>
+              Ready to turn your data{" "}
+              <span style={{ color: "#39FF14" }}>into decisions?</span>
             </motion.h2>
             <motion.p
               className="text-base leading-relaxed max-w-lg"
@@ -504,7 +503,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Book a free 45-minute Operational Audit. We&apos;ll map your bottlenecks and outline exactly what a custom AI system would look like for your business. No pitch. Just clarity.
+              Book a free 45-minute Readiness Assessment. We&apos;ll review your current data infrastructure and show you exactly what a custom AI decision-support system would look like for your business. No pitch. Just clarity.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -512,7 +511,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ ...SPRING, delay: 0.3 }}
             >
-              <MagneticCTA href="mailto:dahamoody@gmail.com?subject=Operational%20Audit%20Request&body=Hi%2C%0A%0AI%27d%20like%20to%20book%20a%20free%20Operational%20Audit%20with%20ABBA.%0A%0AName%3A%20%0ACompany%3A%20%0ABiggest%20bottleneck%3A%20">Book Your Audit →</MagneticCTA>
+              <MagneticCTA href="mailto:dahamoody@gmail.com?subject=Readiness%20Assessment%20Request&body=Hi%2C%0A%0AI%27d%20like%20to%20book%20a%20free%20Readiness%20Assessment%20with%20ABBA.%0A%0AName%3A%20%0ACompany%3A%20%0ACurrent%20data%20systems%3A%20%0ABiggest%20decision-making%20gap%3A%20">Book Your Assessment →</MagneticCTA>
             </motion.div>
             <p className="text-[10px] uppercase tracking-widest opacity-30" style={{ color: "var(--foreground)" }}>
               Currently available for new engagements.

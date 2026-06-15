@@ -8,12 +8,12 @@ export const metadata: Metadata = {
     shortcut: "/assets/abba-favicon.png",
     apple: "/assets/abba-favicon.png",
   },
-  title: "ABBA — AI Infrastructure Built Around How You Actually Operate",
+  title: "ABBA — AI Decision-Support Systems for Enterprise Bangladesh",
   description:
-    "Custom AI systems — voice agents, agentic workflows, and backend integrations — for businesses that want to operate at a higher level. No off-the-shelf software.",
+    "Custom AI systems for FMCG, manufacturing, and enterprise businesses — demand forecasting, operational dashboards, supply chain intelligence. Built on your data.",
   openGraph: {
     title: "ABBA — Always Building Better Automations",
-    description: "AI infrastructure built around how you actually operate.",
+    description: "AI decision-support systems for FMCG, manufacturing, and enterprise businesses in Bangladesh.",
     url: "https://getabba.info",
     siteName: "ABBA",
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ABBA — Always Building Better Automations",
-    description: "AI infrastructure built around how you actually operate.",
+    description: "AI decision-support systems for FMCG, manufacturing, and enterprise businesses in Bangladesh.",
     images: ["https://getabba.info/assets/abba-og-image.png"],
   },
 };
