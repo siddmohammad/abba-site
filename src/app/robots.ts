@@ -8,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/onboard"],
       },
     ],
     sitemap: "https://getabba.info/sitemap.xml",

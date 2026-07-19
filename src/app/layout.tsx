@@ -8,12 +8,12 @@ export const metadata: Metadata = {
     shortcut: "/assets/abba-favicon.png",
     apple: "/assets/abba-favicon.png",
   },
-  title: "ABBA — AI Decision-Support Systems for Enterprise Bangladesh",
+  title: "ABBA: Websites & AI Integration for Small Business in Bangladesh",
   description:
-    "Custom AI systems for FMCG, manufacturing, and enterprise businesses — demand forecasting, operational dashboards, supply chain intelligence. Built on your data.",
+    "We build websites and AI tools for small and local businesses in Bangladesh. Pet shops, car dealers, retail, and more. Built for you, live in weeks.",
   openGraph: {
-    title: "ABBA — Always Building Better Automations",
-    description: "AI decision-support systems for FMCG, manufacturing, and enterprise businesses in Bangladesh.",
+    title: "ABBA: Always Building Better Automations",
+    description: "Websites and AI integration for small and local businesses in Bangladesh.",
     url: "https://getabba.info",
     siteName: "ABBA",
     locale: "en_US",
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
         url: "https://getabba.info/assets/abba-og-image.png",
         width: 1200,
         height: 630,
-        alt: "ABBA — Always Building Better Automations",
+        alt: "ABBA: Always Building Better Automations",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ABBA — Always Building Better Automations",
-    description: "AI decision-support systems for FMCG, manufacturing, and enterprise businesses in Bangladesh.",
+    title: "ABBA: Always Building Better Automations",
+    description: "Websites and AI integration for small and local businesses in Bangladesh.",
     images: ["https://getabba.info/assets/abba-og-image.png"],
   },
 };
@@ -53,40 +53,37 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
-              "name": "ABBA — Always Building Better Automations",
+              "name": "ABBA: Always Building Better Automations",
               "alternateName": "ABBA",
               "url": "https://getabba.info",
               "logo": "https://getabba.info/assets/abba-favicon.png",
               "image": "https://getabba.info/assets/abba-og-image.png",
-              "description": "ABBA builds custom AI systems — voice agents, agentic workflows, and backend integrations — for businesses integrating AI into their operations. No off-the-shelf software. Built around how you actually work.",
+              "description": "ABBA builds websites and AI powered tools for small and local businesses. No off the shelf templates. Every site is built around how the business actually works.",
               "slogan": "Always Building Better Automations",
               "knowsAbout": [
-                "AI Automation",
-                "Business Process Automation",
-                "Voice Agents",
-                "Agentic Workflows",
+                "Website Design",
+                "Website Development",
                 "AI Integration",
-                "Custom AI Systems",
-                "n8n Workflows",
-                "Supabase",
-                "Omnichannel Intake",
-                "Operational AI"
+                "Business Automation",
+                "Chatbots",
+                "WhatsApp Automation",
+                "Small Business Technology",
+                "Local SEO"
               ],
               "serviceType": [
-                "AI Voice Agents",
-                "Agentic Workflow Automation",
-                "Omnichannel Intake Engines",
-                "Custom AI System Development",
-                "Business AI Integration"
+                "Website Design and Development",
+                "AI Integration for Small Business",
+                "Business Automation",
+                "Ongoing Website and AI Support"
               ],
-              "areaServed": "Worldwide",
+              "areaServed": "Bangladesh",
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
-                "name": "AI Automation Services",
+                "name": "Website and AI Services",
                 "itemListElement": [
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Voice Agents", "description": "AI-powered voice systems that handle inbound calls, qualify leads, and book appointments 24/7." } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agentic Workflows", "description": "Multi-step AI agents that execute complex backend operations autonomously." } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Omnichannel Intake Engines", "description": "AI systems that capture, qualify, and respond to inquiries across web, WhatsApp, email, and social." } }
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Design & Build", "description": "A custom website built around your business, live in weeks, not months." } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Integration", "description": "Chatbots, automated booking, and smart tools layered onto your site to save you time." } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ongoing Support", "description": "Updates, fixes, and improvements as your business grows." } }
                 ]
               },
               "contactPoint": {

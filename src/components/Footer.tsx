@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 
 const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
   Services: [
-    { label: "Voice Agents",          href: "#capabilities" },
-    { label: "Agentic Workflows",     href: "#capabilities" },
-    { label: "Intake Engines",        href: "#capabilities" },
-    { label: "Book an Audit",         href: "#contact" },
+    { label: "Website Design & Build", href: "#capabilities" },
+    { label: "AI Integration",         href: "#capabilities" },
+    { label: "Ongoing Support",        href: "#capabilities" },
+    { label: "Book a Call",            href: "#contact" },
   ],
   Company: [
     { label: "getabba.info",          href: "https://getabba.info" },
@@ -82,7 +82,7 @@ export default function Footer() {
             ABBA
           </span>
           <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--foreground)", opacity: 0.5 }}>
-            Always Building Better Automations. Custom AI systems for businesses that want to operate at a higher level.
+            Always Building Better Automations. Websites and AI integration for small businesses that want to look, and work, like bigger ones.
           </p>
 
           {/* Neon dot divider */}
@@ -147,7 +147,7 @@ export default function Footer() {
             Stay Updated
           </h4>
           <p className="text-xs leading-relaxed" style={{ color: "var(--foreground)", opacity: 0.45 }}>
-            AI infrastructure insights for operators who build differently.
+            Practical tips for small businesses going digital.
           </p>
 
           {subState === "done" ? (

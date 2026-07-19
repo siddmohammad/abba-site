@@ -80,7 +80,7 @@ export default function Navbar() {
 
         {/* Desktop CTA + Mobile Hamburger */}
         <div className="flex items-center gap-4">
-          <MagneticButton href="#contact" label="Book an Audit" className="hidden md:inline-flex" />
+          <MagneticButton href="#contact" label="Book a Call" className="hidden md:inline-flex" />
 
           {/* Hamburger (mobile) */}
           <motion.button
@@ -141,7 +141,7 @@ export default function Navbar() {
             >
               <MagneticButton
                 href="#contact"
-                label="Book an Audit"
+                label="Book a Call"
                 onClick={() => setMobileOpen(false)}
               />
             </motion.div>

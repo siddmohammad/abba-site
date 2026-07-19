@@ -28,8 +28,8 @@ export default function PrivacyPage() {
             <p className="mb-2">This Privacy Policy explains how ABBA collects, uses, stores, and protects data when you use our automation services.</p>
             <p className="mb-2"><strong>Who this applies to:</strong></p>
             <ul className="list-disc pl-6 mb-4 flex flex-col gap-2">
-              <li>Businesses (clinics, service providers, etc.) who are our clients</li>
-              <li>End users (customers, patients, etc.) who interact with our clients&apos; automated systems</li>
+              <li>Businesses (retail shops, dealerships, service providers, etc.) who are our clients</li>
+              <li>End users (customers, etc.) who interact with our clients&apos; automated systems</li>
             </ul>
             <p><strong>Our role:</strong> ABBA acts as a data processor on behalf of our clients. We handle data solely to deliver the services our clients have requested. Our clients remain the data owners and are responsible for how they use and manage their customer data.</p>
           </div>
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-xl font-bold font-pixel mb-4 uppercase" style={{ color: "#39FF14" }}>4. Data Ownership</h2>
-            <p className="mb-2"><strong>Clients own their data.</strong> All business information, customer conversations, patient records, and interaction history generated through ABBA belong to the client.</p>
+            <p className="mb-2"><strong>Clients own their data.</strong> All business information, customer conversations, customer records, and interaction history generated through ABBA belong to the client.</p>
             <p>ABBA does not claim ownership of client data. We process it only as instructed and as necessary to deliver the service.</p>
           </div>
 
@@ -189,7 +189,7 @@ export default function PrivacyPage() {
               <li><strong>Portability:</strong> Export your data in a usable format upon request</li>
             </ul>
             <p className="mb-4">To exercise these rights, contact us at <a href="mailto:support@getabba.info" className="text-[#39FF14] hover:underline">support@getabba.info</a>.</p>
-            <p><strong>For end users (customers/patients):</strong> If you have questions about how your data is used, please contact the business you interacted with. They are the data controller and responsible for responding to your privacy requests.</p>
+            <p><strong>For end users (customers):</strong> If you have questions about how your data is used, please contact the business you interacted with. They are the data controller and responsible for responding to your privacy requests.</p>
           </div>
 
           <div>

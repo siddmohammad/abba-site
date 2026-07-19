@@ -13,65 +13,65 @@ const SPRING = { type: "spring" as const, stiffness: 200, damping: 24 };
 const CAPABILITIES = [
   {
     num: "01",
-    title: "Sales & Demand Intelligence",
-    body: "AI-powered demand forecasting, SKU-wise and territory-wise. Early warning for stock shortages or overstock. Built on your historical data.",
+    title: "Website Design & Build",
+    body: "A clean, fast website built around your business, not a generic template. Live in weeks, not months.",
   },
   {
     num: "02",
-    title: "Operational Dashboards",
-    body: "Automated management dashboards for sales, inventory, production, cash flow, and profitability — updated daily, no manual input.",
+    title: "AI Integration",
+    body: "Chatbots, WhatsApp automation, smart booking. Whatever saves you time and answers customers even when you can't. Layered on top of your new site.",
   },
   {
     num: "03",
-    title: "Supply Chain & Procurement Analytics",
-    body: "Reorder signals, vendor ranking, purchase quantity optimization, and inventory health monitoring — all driven by your live data.",
+    title: "Ongoing Support",
+    body: "Your site and AI tools keep working after launch. Updates, fixes, and improvements as your business grows.",
   },
 ];
 
 const PROBLEMS = [
   {
     num: "01",
-    title: "Manual Reporting",
-    body: "Your team compiles the same Excel reports every week. By the time a decision reaches you, the data is already 3 days old.",
+    title: "No Real Website",
+    body: "You're on Facebook, maybe Instagram. No real site. Customers searching for you online find nothing, or find a competitor instead.",
   },
   {
     num: "02",
-    title: "No Early Warnings",
-    body: "Stock-outs, overstock, cash crunches — they show up as problems, never as predictions. You react instead of plan.",
+    title: "Manual Everything",
+    body: "Every booking, every question, every order comes in by phone or DM. Someone has to answer it, every single time.",
   },
   {
     num: "03",
-    title: "Disconnected Systems",
-    body: "Your ERP has the numbers. Your management doesn't see them. The gap between data and decision costs you every month.",
+    title: "Falling Behind",
+    body: "Bigger competitors already look more professional online and use AI to respond faster. Small businesses get left behind by default, not by choice.",
   },
 ];
 
 const PROCESS = [
   {
     num: "01",
-    title: "Readiness Assessment",
-    body: "We audit your data infrastructure, map your systems, and confirm what's possible before quoting anything. No surprises.",
+    title: "Discovery Call",
+    body: "We learn about your business, what you sell, and where customers get stuck today. Free, no pitch, no obligation.",
   },
   {
     num: "02",
-    title: "Architecture",
-    body: "We design the full data pipeline — from your source systems to your dashboards — before building a single connection.",
+    title: "Design & Build",
+    body: "We design and build your website first, then map exactly where AI can save you the most time.",
   },
   {
     num: "03",
-    title: "Build (Phase by Phase)",
-    body: "We deliver in phases. You see value before committing to the next one. No big-bang projects.",
+    title: "Launch in Phases",
+    body: "Your site goes live first. AI features layer on top once the foundation is solid. You see progress at every step.",
   },
   {
     num: "04",
     title: "Own It",
-    body: "You own the system. No vendor lock-in, no SaaS dependency. Your data stays yours.",
+    body: "You own the site and the system. No vendor lock-in, no monthly SaaS tax. Your business stays yours.",
   },
 ];
 
 const STATS = [
   { value: "Phase-based", label: "No big-bang commitments" },
-  { value: "Your data",   label: "We read, never overwrite" },
+  { value: "You Own It",  label: "No lock-in, ever" },
   { value: "BDT-priced",  label: "Built for Bangladesh" },
 ];
 
@@ -227,7 +227,7 @@ export default function Home() {
                 animate={{ opacity: [1, 0.3, 1] }}
                 transition={{ repeat: Infinity, duration: 1.6 }}
               />
-              Now working with enterprise businesses across Bangladesh
+              Now building for small businesses across Bangladesh
             </motion.div>
 
             <HeroHeadline />
@@ -239,8 +239,8 @@ export default function Home() {
               animate={{ opacity: 0.65, y: 0 }}
               transition={{ ...SPRING, delay: 0.7 }}
             >
-              We build custom AI decision-support systems for FMCG, manufacturing, and enterprise businesses — demand forecasting, operational dashboards, supply chain intelligence.{" "}
-              <strong style={{ color: "var(--foreground)", opacity: 1 }}>Built on your data. Delivered in phases.</strong>
+              We help small businesses adopt smart solutions. First, a website that actually works for you. Then, AI built in to save you time on bookings, questions, and follow ups.{" "}
+              <strong style={{ color: "var(--foreground)", opacity: 1 }}>Built for you. Live in weeks.</strong>
             </motion.p>
 
             {/* CTAs */}
@@ -250,7 +250,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...SPRING, delay: 0.85 }}
             >
-              <MagneticCTA href="#contact">Book a Free Readiness Assessment →</MagneticCTA>
+              <MagneticCTA href="#contact">Book a Free Discovery Call →</MagneticCTA>
               <motion.a
                 href="#capabilities"
                 className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-widest rounded-sm"
@@ -307,8 +307,8 @@ export default function Home() {
                 className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
-                Your data exists.{" "}
-                <span style={{ color: "#39FF14" }}>Your decisions don&apos;t use it.</span>
+                Your business is ready.{" "}
+                <span style={{ color: "#39FF14" }}>Your website isn&apos;t.</span>
               </h2>
             </motion.div>
 
@@ -347,8 +347,8 @@ export default function Home() {
                 className="text-3xl md:text-5xl font-bold print-jitter leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
-                Three systems.{" "}
-                <span style={{ color: "#39FF14" }}>One integrated picture.</span>
+                What we actually build.{" "}
+                <span style={{ color: "#39FF14" }}>For you, not a template.</span>
               </h2>
             </motion.div>
 
@@ -384,22 +384,22 @@ export default function Home() {
                 WHO THIS IS FOR
               </div>
               <h2 className="text-3xl md:text-5xl font-bold print-jitter leading-tight" style={{ color: "var(--foreground)" }}>
-                Built for businesses where{" "}
-                <span style={{ color: "#39FF14" }}>data exists but decisions are still manual.</span>
+                Built for small businesses{" "}
+                <span style={{ color: "#39FF14" }}>ready to look, and work, like bigger ones.</span>
               </h2>
               <p className="mt-4 text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--foreground)", opacity: 0.5 }}>
-                ABBA builds custom AI infrastructure for mid-to-large enterprises in Bangladesh — not off-the-shelf BI tools, not generic dashboards. Systems designed around how your business actually operates.
+                ABBA builds websites and AI tools for small and local businesses in Bangladesh. Not enterprise software, not generic templates. Built around how your business actually runs.
               </p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
               {[
-                { icon: "🏭", sector: "FMCG & Consumer Products", desc: "Demand forecasting, distribution planning, and territory-wise profitability — built on your sales and dealer data." },
-                { icon: "⚙️", sector: "Manufacturing", desc: "Production scheduling, raw material control, capacity utilization, and wastage analytics." },
-                { icon: "🚚", sector: "Supply Chain & Distribution", desc: "Route optimization, inventory aging reports, vendor ranking, and stock-out risk alerts." },
-                { icon: "💰", sector: "Finance & Accounting", desc: "Cash operating cycle monitoring, working capital dashboards, and automated management reporting." },
-                { icon: "🛒", sector: "Retail & Trading", desc: "SKU-wise profitability, slow-moving stock identification, and automated reorder signals." },
-                { icon: "📊", sector: "Executive Leadership", desc: "CEO/CFO command dashboards, scenario planning, budget vs actual monitoring, and AI-generated exception reports." },
+                { icon: "🐾", sector: "Pet Shops & Pet Care", desc: "A real site to show products, services, and hours, with AI to answer common questions automatically." },
+                { icon: "🚗", sector: "Car Dealers & Auto Sales", desc: "Showcase your inventory online and let AI handle initial buyer questions and test drive bookings." },
+                { icon: "🛍️", sector: "Retail & Local Shops", desc: "Get found online, list what you sell, and let AI handle repetitive questions and orders." },
+                { icon: "🍽️", sector: "Restaurants & Cafes", desc: "Menus, hours, and location always up to date online, with AI-assisted bookings and orders." },
+                { icon: "💇", sector: "Salons, Clinics & Wellness", desc: "A professional site that builds trust, with AI to handle appointment requests around the clock." },
+                { icon: "🔧", sector: "Home & Trade Services", desc: "A site that shows what you do and where, with AI to capture leads even after hours." },
               ].map((item, i) => (
                 <GlowCard key={item.sector} delay={i * 0.08}>
                   <div className="text-2xl mb-3">{item.icon}</div>
@@ -423,11 +423,11 @@ export default function Home() {
               transition={{ ...SPRING, delay: 0.2 }}
             >
               <p className="text-base md:text-lg font-bold leading-snug" style={{ color: "var(--foreground)" }}>
-                &ldquo;If your business has data but your management is still flying blind —<br />
-                <span style={{ color: "#39FF14" }}>that&apos;s exactly the problem we solve.&rdquo;</span>
+                &ldquo;If your business doesn&apos;t show up online, or your team spends all day answering the same questions,<br />
+                <span style={{ color: "#39FF14" }}>that&apos;s exactly what we fix.&rdquo;</span>
               </p>
               <p className="mt-3 text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground)", opacity: 0.35 }}>
-                ABBA — Custom AI Systems
+                ABBA: Websites &amp; AI for Small Business
               </p>
             </motion.div>
           </div>
@@ -492,8 +492,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={SPRING}
             >
-              Ready to turn your data{" "}
-              <span style={{ color: "#39FF14" }}>into decisions?</span>
+              Ready to look,{" "}
+              <span style={{ color: "#39FF14" }}>and work, like a bigger business?</span>
             </motion.h2>
             <motion.p
               className="text-base leading-relaxed max-w-lg"
@@ -503,7 +503,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Book a free 45-minute Readiness Assessment. We&apos;ll review your current data infrastructure and show you exactly what a custom AI decision-support system would look like for your business. No pitch. Just clarity.
+              Book a free 30-minute call. We&apos;ll look at what you have today, a Facebook page, an old site, or nothing at all, and show you exactly what a real website plus AI would look like for your business. No pitch. Just clarity.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -511,7 +511,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ ...SPRING, delay: 0.3 }}
             >
-              <MagneticCTA href="mailto:dahamoody@gmail.com?subject=Readiness%20Assessment%20Request&body=Hi%2C%0A%0AI%27d%20like%20to%20book%20a%20free%20Readiness%20Assessment%20with%20ABBA.%0A%0AName%3A%20%0ACompany%3A%20%0ACurrent%20data%20systems%3A%20%0ABiggest%20decision-making%20gap%3A%20">Book Your Assessment →</MagneticCTA>
+              <MagneticCTA href="mailto:dahamoody@gmail.com?subject=Website%20%2B%20AI%20Inquiry&body=Hi%2C%0A%0AI%27d%20like%20to%20book%20a%20free%20Discovery%20Call%20with%20ABBA.%0A%0AName%3A%20%0ABusiness%3A%20%0ACurrent%20website%20(if%20any)%3A%20%0AWhat%20I%20want%20AI%20to%20help%20with%3A%20">Book Your Free Call →</MagneticCTA>
             </motion.div>
             <p className="text-[10px] uppercase tracking-widest opacity-30" style={{ color: "var(--foreground)" }}>
               Currently available for new engagements.
